@@ -1,0 +1,85 @@
+# The FIRAI maturity scale. One record per grade, ordered from strongest to
+# weakest. A grade is a research-and-validation summary, never a legal
+# conclusion: the alignments below say which court reliability factors each
+# grade speaks to, not whether evidence built on it is admissible anywhere.
+# Quoted passages are verbatim from the judgments, with pinpoint citations.
+- id: Established
+  order: 1
+  meaning: Widely adopted with a long, verified track record. The method's mechanics are well tested,
+    even where validation for forensic use is newer.
+  daubert_alignment: >-
+    Corresponds to general acceptance in the relevant scientific community: "Widespread acceptance can
+    be an important factor in ruling particular evidence admissible" (Daubert v. Merrell Dow
+    Pharmaceuticals, Inc., 509 U.S. 579, 593-94 (1993)), normally on top of a method that "can be (and
+    has been) tested" and "has been subjected to peer review and publication" (ibid.). General
+    acceptance "is only one of several factors to be considered" (R. v. J.-L.J., 2000 SCC 51, para. 34),
+    so this grade does not on its own show that the reliability standard is met.
+  canada_alignment: >-
+    Corresponds to a method that is not novel science, so it falls outside the "special scrutiny" that
+    applies to "expert evidence which advances a novel scientific theory or technique" (R. v. Mohan,
+    [1994] 2 S.C.R. 9, p. 25). Reliability is still weighed at the gatekeeping stage, where "the judge
+    balances the potential risks and benefits of admitting the evidence in order to decide whether the
+    potential benefits justify the risks" (White Burgess Langille Inman v. Abbott and Haliburton Co.,
+    2015 SCC 23, para. 24). An established method used for a new purpose returns to special scrutiny:
+    "While the techniques he employed are not novel, he is using them for a novel purpose" (J.-L.J.,
+    para. 35).
+  references:
+  - text: Daubert v. Merrell Dow Pharmaceuticals, Inc., 509 U.S. 579, 593-94 (1993).
+    status: active
+  - text: R. v. Mohan, [1994] 2 S.C.R. 9, p. 25.
+    status: active
+  - text: R. v. J.-L.J., 2000 SCC 51, [2000] 2 S.C.R. 600, paras. 34-35.
+    status: active
+  - text: White Burgess Langille Inman v. Abbott and Haliburton Co., 2015 SCC 23, [2015] 2 S.C.R. 182,
+      para. 24.
+    status: active
+- id: Demonstrated
+  order: 2
+  meaning: Shown to work in practice or in adjacent research domains, but not yet independently validated
+    for forensic use.
+  daubert_alignment: >-
+    Corresponds to a method that "can be (and has been) tested" and "has been subjected to peer review
+    and publication" (Daubert v. Merrell Dow Pharmaceuticals, Inc., 509 U.S. 579, 593-94 (1993)), but
+    has not yet been independently validated for forensic use. For the forensic application, "the known
+    or potential rate of error" and "the existence and maintenance of standards controlling the
+    technique's operation" (ibid.), and general acceptance, are not yet shown.
+  canada_alignment: >-
+    Corresponds to science used for a novel purpose. The threshold requirements include, "in the case of
+    an opinion based on novel or contested science or science used for a novel purpose, the reliability
+    of the underlying science for that purpose" (White Burgess Langille Inman v. Abbott and Haliburton
+    Co., 2015 SCC 23, para. 23). The underlying method has a tested, published foundation, but its
+    reliability for the forensic purpose must be established under special scrutiny, with reference to
+    the factors the Supreme Court of Canada adopted from Daubert: "(1) whether the theory or technique
+    can be and has been tested", "(2) whether the theory or technique has been subjected to peer review
+    and publication", "(3) the known or potential rate of error or the existence of standards" and "(4)
+    whether the theory or technique used has been generally accepted" (R. v. J.-L.J., 2000 SCC 51,
+    para. 33).
+  references:
+  - text: Daubert v. Merrell Dow Pharmaceuticals, Inc., 509 U.S. 579, 593-94 (1993).
+    status: active
+  - text: R. v. J.-L.J., 2000 SCC 51, [2000] 2 S.C.R. 600, para. 33.
+    status: active
+  - text: White Burgess Langille Inman v. Abbott and Haliburton Co., 2015 SCC 23, [2015] 2 S.C.R. 182,
+      para. 23.
+    status: active
+- id: Proposed
+  order: 3
+  meaning: Research-stage, with no independent validation yet. Ambiguous cases default here under the
+    safer-grade rule.
+  daubert_alignment: >-
+    The method does not yet meet the factors of whether it "can be (and has been) tested", whether it
+    "has been subjected to peer review and publication", and general acceptance, and has no established
+    "known or potential rate of error" or "standards controlling the technique's operation" for forensic
+    use (Daubert v. Merrell Dow Pharmaceuticals, Inc., 509 U.S. 579, 593-94 (1993)).
+  canada_alignment: >-
+    Corresponds to novel science: "expert evidence which advances a novel scientific theory or technique
+    is subjected to special scrutiny to determine whether it meets a basic threshold of reliability"
+    (R. v. Mohan, [1994] 2 S.C.R. 9, p. 25, quoted in R. v. J.-L.J., 2000 SCC 51, para. 35). The
+    reliability factors listed in J.-L.J., para. 33 are not yet satisfied.
+  references:
+  - text: Daubert v. Merrell Dow Pharmaceuticals, Inc., 509 U.S. 579, 593-94 (1993).
+    status: active
+  - text: R. v. Mohan, [1994] 2 S.C.R. 9, p. 25.
+    status: active
+  - text: R. v. J.-L.J., 2000 SCC 51, [2000] 2 S.C.R. 600, paras. 33 and 35.
+    status: active

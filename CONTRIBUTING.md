@@ -24,7 +24,12 @@ principles that govern any change, including ones made by maintainers.
    them determine legal admissibility, which depends on the law and facts of
    a specific forum. The `maturity` field (`Established` / `Demonstrated` /
    `Proposed`) is a research-and-validation summary — never a legal
-   conclusion, and never described as one.
+   conclusion, and never described as one. The ladder is, however,
+   deliberately aligned with the reliability factors courts apply to expert
+   evidence — the *Daubert* factors in the United States, and the reliability
+   inquiry under *R v Mohan*, *R v J.-L.J.* and *White Burgess* in Canada — so
+   that findings built on FIRAI are legible to courts. `src/maturity.yaml`
+   records what each grade means and how it aligns with those factors.
 
 3. **Safer-grade rule.** Where a maturity grade is ambiguous, use the lower,
    safer grade. The community disputes upward with evidence, not the reverse.

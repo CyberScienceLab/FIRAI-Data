@@ -58,6 +58,7 @@ def main():
     techniques = load_all("techniques/*.yaml")
     readiness = load_all("readiness/*.yaml")
     gaps = load_all("gaps/*.yaml")
+    maturity = sorted(load_yaml(os.path.join(SRC, "maturity.yaml")), key=lambda m: m["order"])
 
     # -- basic referential checks (full validation lives in tests/, this is a
     #    fail-fast sanity gate so a broken compile never reaches dist/) --
@@ -90,6 +91,7 @@ def main():
         "schema_version": "0.1",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "counts": compute_counts(techniques, evidence_classes, gaps, readiness),
+        "maturity_scale": maturity,
         "phases": phases,
         "evidence_classes": evidence_classes,
         "techniques": techniques,

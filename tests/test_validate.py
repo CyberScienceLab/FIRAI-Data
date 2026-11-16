@@ -76,6 +76,11 @@ def gaps():
     return load_all("gaps/*.yaml")
 
 
+@pytest.fixture(scope="module")
+def maturity():
+    return load_yaml(os.path.join(SRC, "maturity.yaml"))
+
+
 # --------------------------------------------------------------- schema checks
 def test_evidence_classes_validate(evidence_classes):
     schema = load_schema("evidence-class.schema.json")
@@ -99,6 +104,27 @@ def test_techniques_validate(techniques):
     schema = load_schema("technique.schema.json")
     for t in techniques:
         jsonschema.validate(t, schema)
+
+
+def test_maturity_validate(maturity):
+    schema = load_schema("maturity.schema.json")
+    for m in maturity:
+        jsonschema.validate(m, schema)
+
+
+def test_maturity_scale_matches_technique_enum(maturity):
+    # maturity.yaml is the single source of the scale's wording, so it must
+    # define exactly the grades a technique can carry: no more, no fewer.
+    technique_schema = load_schema("technique.schema.json")
+    grades = technique_schema["properties"]["maturity"]["properties"]["base"]["enum"]
+    ids = [m["id"] for m in maturity]
+    assert len(ids) == len(set(ids)), "duplicate grades in maturity.yaml"
+    assert set(ids) == set(grades), f"maturity.yaml grades {ids} != technique enum {grades}"
+
+
+def test_maturity_order_is_a_permutation(maturity):
+    orders = sorted(m["order"] for m in maturity)
+    assert orders == list(range(1, len(maturity) + 1))
 
 
 # --------------------------------------------------------- uniqueness / format
@@ -202,3 +228,4 @@ def test_compile_produces_dist_matching_src_counts(techniques, evidence_classes,
     assert counts["evidence_classes"] == len(evidence_classes)
     assert counts["gaps"] == len(gaps)
     assert counts["readiness_measures"] == len(readiness)
+    assert [m["id"] for m in compiled["maturity_scale"]] == ["Established", "Demonstrated", "Proposed"]

@@ -9,6 +9,7 @@ and GAP records, plus the schemas and scripts that validate and compile them.
 ```
 src/
   phases.yaml              # P01-P05
+  maturity.yaml            # the maturity scale and its Daubert / Canadian alignment
   evidence-classes.yaml    # EC01-EC07, with the asserted volatility ordering
   techniques/
     P01.yaml ... P05.yaml  # one file per phase; parents + sub-techniques
@@ -52,6 +53,18 @@ cross-reference or a schema violation fails the build.
 3. `pytest` locally before opening a PR.
 4. Bump `maturity.base` only via the safer-grade rule (take the lower grade
    when ambiguous; the community disputes upward).
+
+## Maturity scale
+
+Every technique carries a `maturity.base` grade: `Established`,
+`Demonstrated` or `Proposed`. A grade is a research-and-validation summary —
+never a legal conclusion, and never described as one. The ladder is, however,
+deliberately aligned with the reliability factors courts apply to expert
+evidence — the *Daubert* factors in the United States, and the reliability
+inquiry under *R v Mohan*, *R v J.-L.J.* and *White Burgess* in Canada — so
+that findings built on FIRAI are legible to courts. `src/maturity.yaml`
+records what each grade means and how it aligns with those factors; the
+website renders the scale from that file.
 
 ## ID scheme
 
