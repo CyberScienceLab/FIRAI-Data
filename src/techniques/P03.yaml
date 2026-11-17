@@ -12,6 +12,15 @@
   readiness_measures: []
   notes: Carve/reconstruct architecture + weights from the memory image acquired by T0202. The recovered
     model is a derived work product, not the same object as an at-rest checkpoint.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   references:
   - text: 'Oygenblik, Yagemann, Zhang, Mastali, Park, Saltaformaggio (2024) — AI Psychiatry: Forensic Investigation of Deep Learning Networks in Memory Images. 33rd USENIX Security Symposium (USENIX Security 24), pp. 1687–1704'
@@ -32,6 +41,15 @@
   readiness_measures: []
   notes: Parse logs/memory records into structured traces. Parsing is Examination; causal reading is Analysis
     (routes to T0406).
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: rarely
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   references:
   - text: 'Gruber, Hilgert (2026) — Foundations for Investigations of Agentic AI Systems from the Forensic
@@ -55,6 +73,15 @@
   readiness_measures: []
   notes: Correlate traces across agents; resolve actor/tool-call identity; causal interpretation is explicitly
     T0406, not here.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: rarely
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
 - id: T0303
   name: Weight & Checkpoint Differential Analysis
@@ -77,6 +104,15 @@
   notes: Diff questioned artifact vs authenticated known-good reference to localize parameter changes.
     Four result levels (byte-identical / exact aligned-tensor / normalized-then-compared / interpretation),
     each supporting different claim strength. Feeds T0406.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   description: Weight & Checkpoint Differential Analysis compares a questioned model artifact against
     an authenticated known-good reference to determine whether parameters differ, and if so where and

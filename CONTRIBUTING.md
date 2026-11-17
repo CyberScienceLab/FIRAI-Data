@@ -87,6 +87,9 @@ See the data-workflow section in `README.md` for the mechanical steps
 (`pytest`, `tools/compile.py`). This section is about content standards:
 
 - Fill in `claim_profile` for anything beyond the thinnest stub.
+- Set `lifecycle_stages` on every technique, following the definitions in
+  `lifecycle-mapping.md`. The stage names are NIST's, but the mapping is
+  FIRAI's own interpretation.
 - If you're asserting a technique is the first/only one to do something,
   scope the claim by date ("as of `<date>`, within the documented search —
   see `novelty-and-gap-method.md`") rather than an unqualified absolute.

@@ -23,6 +23,7 @@ tools/
 tests/
   test_validate.py          # pytest: schema + referential-integrity + CI rules
 dist/                       # generated, gitignored — never commit this
+lifecycle-mapping.md        # how techniques map onto the NIST AI RMF lifecycle stages
 ```
 
 ## Working with the data
@@ -50,8 +51,11 @@ cross-reference or a schema violation fails the build.
    quality_controls / stop_conditions) for anything but the thinnest stub —
    `tests/test_validate.py` enforces this on flagship pages and will grow to
    cover more IDs as pages are written.
-3. `pytest` locally before opening a PR.
-4. Bump `maturity.base` only via the safer-grade rule (take the lower grade
+3. Set `lifecycle_stages` (required): each NIST AI RMF lifecycle stage in
+   which the technique applies, marked `applicable` or `rarely`. See
+   `lifecycle-mapping.md` for the definitions and the patterns in use.
+4. `pytest` locally before opening a PR.
+5. Bump `maturity.base` only via the safer-grade rule (take the lower grade
    when ambiguous; the community disputes upward).
 
 ## Maturity scale

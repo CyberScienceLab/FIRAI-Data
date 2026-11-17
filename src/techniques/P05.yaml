@@ -28,6 +28,17 @@
     Case-specific limitations & stop conditions
 
     Any short claim label derives from this profile, never from access alone.
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
 - id: T0502
   name: Evidentiary Standard Assessment
@@ -63,6 +74,17 @@
     Canadian Mohan/White Burgess
 
     FIRAI records the mapping without predicting admissibility.
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   references:
   - text: Advisory Committee on Evidence Rules (2026) — Report of the Advisory Committee on Evidence Rules.
@@ -85,6 +107,17 @@
   notes: Maps to EU AI Act Articles 18/19 (documentation and log retention) and Article 73 (serious-incident
     reporting), and the OECD common reporting framework for AI incidents. Treated as a versioned overlay,
     since law changes faster than the taxonomy.
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   references:
   - text: European Parliament & Council of the European Union (2024) — Regulation (EU) 2024/1689 (Artificial

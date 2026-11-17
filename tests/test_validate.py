@@ -127,6 +127,51 @@ def test_maturity_order_is_a_permutation(maturity):
     assert orders == list(range(1, len(maturity) + 1))
 
 
+# ----------------------------------------------------------- lifecycle stages
+# Stage names exactly as in the Lifecycle Stage row of NIST AI 100-1 (AI RMF
+# 1.0), Figure 3, in lifecycle order. Pinned here so a schema edit cannot
+# silently drift from the NIST wording.
+NIST_AI_RMF_LIFECYCLE_STAGES = [
+    "Plan and Design",
+    "Collect and Process Data",
+    "Build and Use Model",
+    "Verify and Validate",
+    "Deploy and Use",
+    "Operate and Monitor",
+    "Use or Impacted by",
+]
+
+
+def test_lifecycle_vocabulary_matches_nist_ai_rmf():
+    schema = load_schema("technique.schema.json")
+    assert schema["$defs"]["lifecycleStage"]["enum"] == NIST_AI_RMF_LIFECYCLE_STAGES
+
+
+def test_every_technique_has_a_lifecycle_stage(techniques):
+    for t in techniques:
+        stages = t.get("lifecycle_stages") or []
+        assert stages, f"{t['id']}: no lifecycle_stages"
+        assert any(s["applicability"] == "applicable" for s in stages), (
+            f"{t['id']}: lists only 'rarely' stages; at least one stage must be applicable"
+        )
+
+
+def test_lifecycle_stages_listed_once_each(techniques):
+    # one entry per stage, so a stage can never be both applicable and rarely
+    for t in techniques:
+        names = [s["stage"] for s in t.get("lifecycle_stages") or []]
+        dupes = sorted({n for n in names if names.count(n) > 1})
+        assert not dupes, f"{t['id']}: lifecycle stage listed more than once: {dupes}"
+
+
+def test_lifecycle_stages_in_lifecycle_order(techniques):
+    for t in techniques:
+        names = [s["stage"] for s in t.get("lifecycle_stages") or []]
+        assert names == sorted(names, key=NIST_AI_RMF_LIFECYCLE_STAGES.index), (
+            f"{t['id']}: lifecycle_stages out of NIST lifecycle order"
+        )
+
+
 # --------------------------------------------------------- uniqueness / format
 def test_technique_ids_unique(techniques):
     ids = [t["id"] for t in techniques]

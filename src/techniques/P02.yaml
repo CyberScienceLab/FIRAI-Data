@@ -11,6 +11,15 @@
     qualification: null
   readiness_measures: []
   notes: Hash-verified checkpoints/adapters at rest. ISO/IEC 27037 ancestry.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   references:
   - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
@@ -31,6 +40,15 @@
   readiness_measures: []
   notes: Acquire the memory image of the live model process/accelerator. Extraction and carving of the
     recovered artifact from that image is a separate technique (T0301).
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   references:
   - text: 'Oygenblik, Yagemann, Zhang, Mastali, Park, Saltaformaggio (2024) — AI Psychiatry: Forensic Investigation of Deep Learning Networks in Memory Images. 33rd USENIX Security Symposium (USENIX Security 24), pp. 1687–1704, Appendix A (memory image acquisition)'
@@ -54,6 +72,15 @@
     relationship: strengthening
   notes: Prompt/response, session metadata, agent-invocation records. Availability is an applicability
     condition.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: rarely
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   references:
   - text: 'Kent, Souppaya (2006) — NIST SP 800-92: Guide to Computer Security Log Management. National
@@ -91,6 +118,15 @@
     Agent memory
 
     Post-incident drift unsolved (G0003).
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: rarely
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
 - id: T0205
   name: Inference Configuration Capture
@@ -106,6 +142,15 @@
     qualification: null
   readiness_measures: []
   notes: System prompt, decoding params, guardrail configs, model/version IDs. Load-bearing for replay.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
 - id: T0206
   name: Black-Box Interaction Capture
@@ -121,6 +166,15 @@
   readiness_measures: []
   notes: Systematic timestamped I/O through the exposed interface; investigator logs become evidence and
     take custody.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: rarely
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
 - id: T0207
   name: Training Data Acquisition
@@ -136,6 +190,17 @@
   readiness_measures: []
   notes: 'Lifecycle applicability does the honest work: applicable at Data-prep/Training/Fine-tuning;
     rarely at Deployment without provider cooperation or legal process.'
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: rarely
+  - stage: Operate and Monitor
+    applicability: rarely
   status: active
   references:
   - text: 'United States District Court for the Northern District of California (2024) — In re OpenAI
@@ -158,6 +223,17 @@
   readiness_measures: []
   notes: Custody anchors at Collection, maintained through all phases. Black-box collections (T0206 investigator
     logs) also require custody.
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   references:
   - text: 'Kent, Chevalier, Grance, Dang (2006) — NIST SP 800-86: Guide to Integrating Forensic Techniques into Incident Response, §3.1.2. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-86'
@@ -181,4 +257,13 @@
     qualification: null
   readiness_measures: []
   notes: No settled method for custody of behavioral snapshots, replayed sessions, drifting indices.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
