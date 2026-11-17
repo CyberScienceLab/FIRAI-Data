@@ -2,13 +2,18 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://firai.cybersciencelab.com/schemas/readiness.schema.json",
   "title": "FIRAI Forensic Readiness Measure",
+  "description": "A proactive capability or evidence-preservation practice, put in place before an incident, that enables or strengthens a later forensic investigation. Readiness measures are not investigative techniques: R0008 preserves a behavioral baseline, while T0404 performs the deviation analysis.",
   "type": "object",
-  "required": ["id", "name"],
+  "required": ["id", "name", "type", "description"],
   "additionalProperties": true,
   "properties": {
     "id": { "type": "string", "pattern": "^R[0-9]{4}$" },
-    "name": { "type": "string" },
-    "type": { "type": "string" },
-    "description": { "type": ["string", "null"] }
+    "name": { "type": "string", "minLength": 1 },
+    "type": {
+      "type": "string",
+      "enum": ["strengthen", "new"],
+      "description": "strengthen: extends an existing classical control (logging, version control, configuration management, asset inventory, signing, supplier contracts) to cover AI. new: an AI-specific control with no classical counterpart."
+    },
+    "description": { "type": "string", "minLength": 1 }
   }
 }

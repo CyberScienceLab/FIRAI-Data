@@ -214,6 +214,14 @@ def test_technique_readiness_measures_resolve(techniques, readiness):
             )
 
 
+def test_every_readiness_measure_is_linked(techniques, readiness):
+    # A readiness measure exists to support techniques. One that no technique
+    # links is either unused or missing its links.
+    linked = {rm["id"] for t in techniques for rm in t.get("readiness_measures") or []}
+    unlinked = sorted(r["id"] for r in readiness if r["id"] not in linked)
+    assert not unlinked, f"readiness measures not linked from any technique: {unlinked}"
+
+
 def test_technique_evidence_classes_resolve(techniques, evidence_classes, phases):
     # a technique's evidence_classes entries are either EC## IDs or, for
     # cross-cutting techniques rendered as phase bands (Principle 4 / P1-2),

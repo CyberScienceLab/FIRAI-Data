@@ -376,7 +376,9 @@
     base: Demonstrated
     qualification: per sub-technique — instance-level is Proposed, dataset-level is Demonstrated only
       under stated control conditions. See profile.
-  readiness_measures: []
+  readiness_measures:
+  - id: R0007
+    relationship: strengthening
   notes: 'Instance-level and dataset-level membership inference have different reliability and are graded
     separately, not as one "membership inference" card.'
   lifecycle_stages:
@@ -522,7 +524,9 @@
   maturity:
     base: Proposed
     qualification: Demonstrated as a red-teaming method
-  readiness_measures: []
+  readiness_measures:
+  - id: R0008
+    relationship: enabling
   notes: Post-incident probing against a baseline.
   lifecycle_stages:
   - stage: Build and Use Model

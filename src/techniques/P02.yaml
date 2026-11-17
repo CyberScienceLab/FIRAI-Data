@@ -70,6 +70,8 @@
     relationship: strengthening
   - id: R0006
     relationship: strengthening
+  - id: R0010
+    relationship: enabling
   notes: Prompt/response, session metadata, agent-invocation records. Availability is an applicability
     condition.
   lifecycle_stages:
@@ -104,6 +106,8 @@
   readiness_measures:
   - id: R0004
     relationship: strengthening
+  - id: R0010
+    relationship: enabling
   notes: |-
     Capture scope:
 
@@ -140,7 +144,9 @@
   maturity:
     base: Established
     qualification: null
-  readiness_measures: []
+  readiness_measures:
+  - id: R0003
+    relationship: strengthening
   notes: System prompt, decoding params, guardrail configs, model/version IDs. Load-bearing for replay.
   lifecycle_stages:
   - stage: Build and Use Model
@@ -187,7 +193,9 @@
   maturity:
     base: Established
     qualification: mechanics
-  readiness_measures: []
+  readiness_measures:
+  - id: R0007
+    relationship: enabling
   notes: 'Lifecycle applicability does the honest work: applicable at Data-prep/Training/Fine-tuning;
     rarely at Deployment without provider cooperation or legal process.'
   lifecycle_stages:

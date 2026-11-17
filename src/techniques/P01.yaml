@@ -44,7 +44,9 @@
   maturity:
     base: Proposed
     qualification: null
-  readiness_measures: []
+  readiness_measures:
+  - id: R0009
+    relationship: strengthening
   notes: Signature technique; per-component access assessment; derives the applicable technique set for
     the engagement.
   lifecycle_stages:
@@ -72,7 +74,9 @@
   maturity:
     base: Proposed
     qualification: null
-  readiness_measures: []
+  readiness_measures:
+  - id: R0009
+    relationship: strengthening
   notes: 'Architecture in scope: bare model / RAG / tool-using agent / multi-agent; enumerate components.
     Seeds the evidence inventory.'
   lifecycle_stages:
