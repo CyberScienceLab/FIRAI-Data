@@ -16,6 +16,13 @@
     which may overlap. The typing is intentionally coarse so it does not prematurely bias method selection
     in later phases.
   status: active
+  references:
+  - text: 'Cichonski, Millar, Grance, Scarfone (2012) — NIST SP 800-61 Rev. 2: Computer Security Incident Handling Guide, §3.2.1. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-61r2 (withdrawn April 3, 2025; superseded by SP 800-61 Rev. 3)'
+    status: active
+  - text: 'Howard, Longstaff (1998) — A Common Language for Computer Security Incidents. Sandia National Laboratories, SAND98-8667'
+    status: active
+  - text: 'Kumar, O''Brien, Albert, Viljöen, Snover (2019) — Failure Modes in Machine Learning. arXiv:1911.11034'
+    status: active
 - id: T0102
   name: Access Level Determination
   phase: P01

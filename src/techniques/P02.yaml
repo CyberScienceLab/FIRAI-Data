@@ -32,6 +32,9 @@
   notes: Acquire the memory image of the live model process/accelerator. Extraction and carving of the
     recovered artifact from that image is a separate technique (T0301).
   status: active
+  references:
+  - text: 'Oygenblik, Yagemann, Zhang, Mastali, Park, Saltaformaggio (2024) — AI Psychiatry: Forensic Investigation of Deep Learning Networks in Memory Images. 33rd USENIX Security Symposium (USENIX Security 24), pp. 1687–1704, Appendix A (memory image acquisition)'
+    status: active
 - id: T0203
   name: Interaction Log Acquisition
   phase: P02
@@ -52,6 +55,13 @@
   notes: Prompt/response, session metadata, agent-invocation records. Availability is an applicability
     condition.
   status: active
+  references:
+  - text: 'Kent, Souppaya (2006) — NIST SP 800-92: Guide to Computer Security Log Management. National
+      Institute of Standards and Technology. doi:10.6028/NIST.SP.800-92'
+    status: active
+  - text: 'Kent, Chevalier, Grance, Dang (2006) — NIST SP 800-86: Guide to Integrating Forensic Techniques
+      into Incident Response, §6.3.1. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-86'
+    status: active
 - id: T0204
   name: Retrieval Corpus & Index Snapshot
   phase: P02
@@ -127,6 +137,11 @@
   notes: 'Lifecycle applicability does the honest work: applicable at Data-prep/Training/Fine-tuning;
     rarely at Deployment without provider cooperation or legal process.'
   status: active
+  references:
+  - text: 'United States District Court for the Northern District of California (2024) — In re OpenAI
+      ChatGPT Litigation, Master File No. 3:23-cv-03223-AMO, ECF No. 182: Training Data Inspection Protocol
+      (so ordered Sept. 24, 2024)'
+    status: active
 - id: T0208
   name: Chain of Custody for AI Artifacts
   phase: P02
@@ -144,6 +159,11 @@
   notes: Custody anchors at Collection, maintained through all phases. Black-box collections (T0206 investigator
     logs) also require custody.
   status: active
+  references:
+  - text: 'Kent, Chevalier, Grance, Dang (2006) — NIST SP 800-86: Guide to Integrating Forensic Techniques into Incident Response, §3.1.2. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-86'
+    status: active
+  - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information technology — Security techniques — Guidelines for identification, collection, acquisition and preservation of digital evidence'
+    status: active
 - id: T0208.001
   name: Custody of Behavioral/Dynamic Evidence
   phase: P02

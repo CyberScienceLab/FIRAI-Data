@@ -30,6 +30,9 @@
 
     Separate exact/state-matched from distributional replay; sandbox side effects. Failed replay does not refute the incident.
   status: active
+  references:
+  - text: 'Oygenblik, Yagemann, Zhang, Mastali, Park, Saltaformaggio (2024) — AI Psychiatry: Forensic Investigation of Deep Learning Networks in Memory Images. 33rd USENIX Security Symposium (USENIX Security 24), pp. 1687–1704, §5.1 (rehosting)'
+    status: active
 - id: T0401.001
   name: Exact / State-Matched Replay
   phase: P04
@@ -46,6 +49,9 @@
   readiness_measures: []
   notes: Identical-config reproduction under pinned state.
   status: active
+  references:
+  - text: 'Oygenblik, Yagemann, Zhang, Mastali, Park, Saltaformaggio (2024) — AI Psychiatry: Forensic Investigation of Deep Learning Networks in Memory Images. 33rd USENIX Security Symposium (USENIX Security 24), pp. 1687–1704, §5.1 (rehosting)'
+    status: active
 - id: T0401.002
   name: Layer-Isolation Replay
   phase: P04
@@ -62,6 +68,11 @@
   readiness_measures: []
   notes: Inject exact retrieved context; isolate retrieval-vs-generation fault.
   status: active
+  references:
+  - text: 'Zhang, Xin, Fang, Liu, Yi, Li, Liu (2025) — Traceback of Poisoning Attacks to Retrieval-Augmented Generation. Proceedings of the ACM Web Conference 2025 (WWW ''25). doi:10.1145/3696410.3714756'
+    status: active
+  - text: 'Zou, Geng, Wang, Jia (2025) — PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models. 34th USENIX Security Symposium (USENIX Security 25)'
+    status: active
 - id: T0402
   name: Model Identity & Provenance Verification
   phase: P04
@@ -181,6 +192,14 @@
   notes: Digest/signature/manifest/attestation verification — an equality/verification question, not similarity.
     Strongest and simplest identity path when signing/attestation exist.
   status: active
+  references:
+  - text: 'Coalition for Secure AI (CoSAI), Workstream 1 (2025) — Signing ML Artifacts: Building Towards
+      Tamper-Proof ML Metadata Records. OASIS Open Project'
+    status: active
+  - text: SLSA Community (2025) — SLSA Specification (Version 1.2)
+    status: active
+  - text: ISO/IEC 27037 — integrity discipline
+    status: active
 - id: T0402.002
   name: Parameter-Space Fingerprint Comparison
   phase: P04
@@ -195,6 +214,10 @@
   readiness_measures: []
   notes: Weight invariants/statistics; heuristic similarity with its own validation conditions.
   status: active
+  references:
+  - text: 'Zeng, Wang, Hu, Xu, Zhou, Wang, Yu, Lin (2024) — HuRef: HUman-REadable fingerprint for large
+      language models'
+    status: active
 - id: T0402.003
   name: Representation/Activation Fingerprinting
   phase: P04
@@ -211,6 +234,10 @@
   readiness_measures: []
   notes: Activation/attention similarity.
   status: active
+  references:
+  - text: 'Zhang, Liu, Qian, Zhang, Liu, Qiao, Shao (2025) — REEF: Representation encoding fingerprints
+      for large language models'
+    status: active
 - id: T0402.004
   name: Behavioral Fingerprinting
   phase: P04
@@ -225,6 +252,11 @@
   readiness_measures: []
   notes: Curated elicitation; open-set caveats.
   status: active
+  references:
+  - text: 'Pasquini, Kornaropoulos, Ateniese (2025) — LLMmap: Fingerprinting for Large Language Models. 34th USENIX Security Symposium (USENIX Security 25), pp. 299–318'
+    status: active
+  - text: 'Scarfone, Souppaya, Cody, Orebaugh (2008) — NIST SP 800-115: Technical Guide to Information Security Testing and Assessment, §§4.1–4.2 (OS fingerprinting). National Institute of Standards and Technology'
+    status: active
 - id: T0402.005
   name: Watermark / Registered-Signal Verification
   phase: P04
@@ -243,6 +275,12 @@
   notes: Verify a pre-registered signal; strength depends on scheme soundness, registration, threat model,
     and transformation robustness — not on access tier.
   status: active
+  references:
+  - text: Uchida, Nagai, Sakazawa, Satoh (2017) — Embedding watermarks into deep neural networks
+    status: active
+  - text: 'Aiken, Kim, Woo, Ryoo (2021) — Neural network laundering: Removing black-box backdoor watermarks
+      from deep neural networks'
+    status: active
 - id: T0403
   name: Training Data Membership & Provenance Testing
   phase: P04
@@ -356,6 +394,15 @@
   notes: Aggregates many weak per-record membership signals across a candidate dataset. Substantially
     more reliable than instance-level MI when validation-set conditions hold.
   status: active
+  references:
+  - text: Maini et al. (2024) — LLM Dataset Inference — Did you train on my dataset?
+    status: active
+  - text: Puerto et al. (2025) — Scaling Up Membership Inference — When and How Attacks Succeed on Large
+      Language Models
+    status: active
+  - text: Zhang, Das, Kamath, Tramèr (2024) — Position — Membership Inference Attacks Cannot Prove that
+      a Model Was Trained On Your Data
+    status: active
 - id: T0404
   name: Behavioral Deviation Analysis
   phase: P04
@@ -428,3 +475,6 @@
   notes: Temporal-causal account; consumes T0302 traces; bridges into P05. Needs clock-sync/time-source/uncertainty
     and correlation IDs (R0001/R0006) to be defensible across distributed components.
   status: active
+  references:
+  - text: 'Kent, Chevalier, Grance, Dang (2006) — NIST SP 800-86: Guide to Integrating Forensic Techniques into Incident Response, §4.4. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-86'
+    status: active
