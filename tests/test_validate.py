@@ -19,6 +19,7 @@ import os
 import re
 import subprocess
 import sys
+import warnings
 
 import jsonschema
 import pytest
@@ -212,6 +213,45 @@ def test_technique_readiness_measures_resolve(techniques, readiness):
             assert rm["id"] in readiness_ids, (
                 f"{t['id']}: readiness measure {rm['id']} does not exist"
             )
+
+
+# ------------------------------------------------------------ reference rule
+def test_techniques_above_proposed_have_references(techniques):
+    # A grade above Proposed claims published support, so it must cite it.
+    # This is the check that would have caught the item 2 gap.
+    missing = sorted(
+        f"{t['id']} ({t['maturity']['base']})"
+        for t in techniques
+        if t["maturity"]["base"] != "Proposed" and not t.get("references")
+    )
+    assert not missing, f"graded above Proposed but no references: {missing}"
+
+
+def test_originality_rationale_only_on_proposed(techniques):
+    # The rationale explains a missing citation for research-stage work. It
+    # cannot stand in for references on a technique graded above Proposed.
+    misplaced = sorted(
+        t["id"] for t in techniques
+        if t.get("originality_rationale") and t["maturity"]["base"] != "Proposed"
+    )
+    assert not misplaced, f"originality_rationale on a technique graded above Proposed: {misplaced}"
+
+
+def test_proposed_without_references_have_rationale(techniques):
+    # Warning only for now: a Proposed technique should cite its closest prior
+    # art or give an originality_rationale. This becomes a failure later.
+    missing = sorted(
+        t["id"] for t in techniques
+        if t["maturity"]["base"] == "Proposed"
+        and not t.get("references")
+        and not t.get("originality_rationale")
+    )
+    if missing:
+        warnings.warn(
+            f"{len(missing)} Proposed technique(s) have neither references nor an "
+            f"originality_rationale: {', '.join(missing)}",
+            UserWarning,
+        )
 
 
 def test_every_readiness_measure_is_linked(techniques, readiness):

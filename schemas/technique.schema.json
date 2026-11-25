@@ -105,6 +105,11 @@
       }
     },
     "description": { "type": ["string", "null"] },
+    "originality_rationale": {
+      "type": "string",
+      "minLength": 1,
+      "description": "For a Proposed technique with no references: why no prior method is cited, pointing to the dated search in novelty-and-gap-method.md. The Proposed grade is not a reference bypass. Techniques graded above Proposed must cite references instead."
+    },
     "notes": { "type": ["string", "null"] },
     "absence_state_vocabulary": {
       "type": "array",
