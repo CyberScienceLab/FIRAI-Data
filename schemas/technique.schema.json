@@ -59,13 +59,6 @@
       "items": { "type": "string", "enum": ["W", "G", "B"] },
       "description": "Coverage/reachability only \u2014 not a claim-strength scale (Principle 5)."
     },
-    "evidence_role": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": ["source", "reference", "investigator_generated", "derived_work_product", "corroborative_external"]
-      }
-    },
     "maturity": {
       "type": "object",
       "required": ["base"],
