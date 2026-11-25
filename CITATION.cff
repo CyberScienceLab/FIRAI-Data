@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use FIRAI, please cite the release you used."
+type: dataset
+title: "FIRAI: Forensic Investigation Reference for AI"
+abstract: >-
+  An openly licensed knowledge base for post-incident forensic investigation
+  of AI systems. FIRAI catalogues investigative techniques across five
+  forensic phases and seven AI evidence classes ordered by volatility, with
+  maturity grades, access requirements, NIST AI RMF lifecycle stages,
+  forensic readiness measures and open research gaps.
+authors:
+  - name: "Cyber Science Lab, University of Guelph"
+    city: Guelph
+    country: CA
+version: 0.1.0
+license:
+  - CC-BY-4.0
+  - MIT
+url: "https://firai.cybersciencelab.com"
+repository-code: "https://github.com/CyberScienceLab/FIRAI-Data"
+keywords:
+  - AI forensics
+  - digital forensics
+  - incident investigation
+  - AI incidents
+  - forensic readiness
+  - taxonomy

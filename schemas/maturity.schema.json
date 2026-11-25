@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://firai.cybersciencelab.com/schemas/maturity.schema.json",
+  "title": "FIRAI Maturity Grade",
+  "type": "object",
+  "required": ["id", "order", "meaning", "daubert_alignment", "canada_alignment"],
+  "additionalProperties": true,
+  "properties": {
+    "id": { "type": "string", "enum": ["Established", "Demonstrated", "Proposed"] },
+    "order": { "type": "integer", "minimum": 1 },
+    "meaning": { "type": "string", "minLength": 1 },
+    "daubert_alignment": { "type": "string", "minLength": 1 },
+    "canada_alignment": { "type": "string", "minLength": 1 },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text", "status"],
+        "properties": {
+          "text": { "type": "string" },
+          "status": { "type": "string", "enum": ["active", "verify"] }
+        }
+      }
+    }
+  }
+}

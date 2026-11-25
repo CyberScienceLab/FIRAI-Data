@@ -12,7 +12,8 @@
   - G
   maturity:
     base: Demonstrated
-    qualification: null
+    qualification: 'state-matched reproduction shown for recovered classifiers, LLM replay with sampling or
+      external services not validated'
   readiness_measures: []
   notes: |-
     Broadened prerequisites:
@@ -28,8 +29,20 @@
     Tool schemas
     Time-dependent external services
 
-    Separate exact/state-matched from distributional replay; sandbox side effects. Failed replay does not refute the incident.
+    Separate exact/state-matched from distributional replay; sandbox side effects. Failed replay does not refute the incident. Replay runs untrusted artifacts, so use an isolated environment with external tool calls disabled or simulated (G0006).
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: rarely
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
+  references:
+  - text: 'Oygenblik, Yagemann, Zhang, Mastali, Park, Saltaformaggio (2024) — AI Psychiatry: Forensic Investigation of Deep Learning Networks in Memory Images. 33rd USENIX Security Symposium (USENIX Security 24), pp. 1687–1704, §5.1 (rehosting)'
+    status: active
 - id: T0401.001
   name: Exact / State-Matched Replay
   phase: P04
@@ -42,10 +55,23 @@
   - G
   maturity:
     base: Demonstrated
-    qualification: null
+    qualification: 'state-matched reproduction shown for recovered classifiers, LLM replay with sampling or
+      external services not validated'
   readiness_measures: []
   notes: Identical-config reproduction under pinned state.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: rarely
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
+  references:
+  - text: 'Oygenblik, Yagemann, Zhang, Mastali, Park, Saltaformaggio (2024) — AI Psychiatry: Forensic Investigation of Deep Learning Networks in Memory Images. 33rd USENIX Security Symposium (USENIX Security 24), pp. 1687–1704, §5.1 (rehosting)'
+    status: active
 - id: T0401.002
   name: Layer-Isolation Replay
   phase: P04
@@ -59,9 +85,27 @@
   maturity:
     base: Demonstrated
     qualification: null
-  readiness_measures: []
-  notes: Inject exact retrieved context; isolate retrieval-vs-generation fault.
+  readiness_measures:
+  - id: R0004
+    relationship: enabling
+  notes: Inject exact retrieved context; isolate retrieval-vs-generation fault. The result is valid only
+    if the retrieval store is unchanged since the incident or a snapshot from that time was preserved
+    (R0004). Reconstructing a store that has drifted is an open gap (G0003).
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: rarely
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
+  references:
+  - text: 'Zhang, Xin, Fang, Liu, Yi, Li, Liu (2025) — Traceback of Poisoning Attacks to Retrieval-Augmented Generation. Proceedings of the ACM Web Conference 2025 (WWW ''25). doi:10.1145/3696410.3714756'
+    status: active
+  - text: 'Zou, Geng, Wang, Jia (2025) — PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models. 34th USENIX Security Symposium (USENIX Security 25)'
+    status: active
 - id: T0402
   name: Model Identity & Provenance Verification
   phase: P04
@@ -76,7 +120,7 @@
   - B
   maturity:
     base: Demonstrated
-    qualification: per sub-technique; .001 Established mechanics. Method families have different evidence
+    qualification: per sub-technique, .001 Established mechanics. Method families have different evidence
       bases and none has forensic validation.
   readiness_measures:
   - id: R0005
@@ -95,6 +139,15 @@
     Ownership-signal verification
 
     Cryptographic identity/attestation is the first sub-technique.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   description: 'Model Identity & Provenance Verification addresses several distinct forensic propositions
     that must not be collapsed into one "identity" question, because they require different evidence
@@ -157,9 +210,12 @@
   - text: Uchida, Nagai, Sakazawa, Satoh (2017) — Embedding watermarks into deep neural networks
     status: active
   - text: 'Aiken, Kim, Woo, Ryoo (2021) — Neural network laundering: Removing black-box backdoor watermarks
-      from deep neural networks'
+      from deep neural networks. Computers & Security 106, 102277. doi:10.1016/j.cose.2021.102277'
     status: active
-  - text: ISO/IEC 27037 — integrity discipline
+  - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
+      technology — Security techniques — Guidelines for identification, collection, acquisition and
+      preservation of digital evidence, 5.4.4 Acquisition and 7.1.4 Preservation (verification functions and digital
+      signatures)'
     status: active
 - id: T0402.001
   name: Cryptographic Package Identity & Attestation Verification
@@ -180,7 +236,27 @@
     relationship: strengthening
   notes: Digest/signature/manifest/attestation verification — an equality/verification question, not similarity.
     Strongest and simplest identity path when signing/attestation exist.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
+  references:
+  - text: 'Coalition for Secure AI (CoSAI), Workstream 1 (2025) — Signing ML Artifacts: Building Towards
+      Tamper-Proof ML Metadata Records. OASIS Open Project'
+    status: active
+  - text: SLSA Community (2025) — SLSA Specification (Version 1.2)
+    status: active
+  - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
+      technology — Security techniques — Guidelines for identification, collection, acquisition and
+      preservation of digital evidence, 5.4.4 Acquisition and 7.1.4 Preservation (verification functions and digital
+      signatures)'
+    status: active
 - id: T0402.002
   name: Parameter-Space Fingerprint Comparison
   phase: P04
@@ -194,7 +270,20 @@
     qualification: null
   readiness_measures: []
   notes: Weight invariants/statistics; heuristic similarity with its own validation conditions.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
+  references:
+  - text: 'Zeng, Wang, Hu, Xu, Zhou, Wang, Yu, Lin (2024) — HuRef: HUman-REadable fingerprint for large
+      language models'
+    status: active
 - id: T0402.003
   name: Representation/Activation Fingerprinting
   phase: P04
@@ -210,7 +299,20 @@
     qualification: null
   readiness_measures: []
   notes: Activation/attention similarity.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
+  references:
+  - text: 'Zhang, Liu, Qian, Zhang, Liu, Qiao, Shao (2025) — REEF: Representation encoding fingerprints
+      for large language models'
+    status: active
 - id: T0402.004
   name: Behavioral Fingerprinting
   phase: P04
@@ -224,7 +326,21 @@
     qualification: null
   readiness_measures: []
   notes: Curated elicitation; open-set caveats.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
+  references:
+  - text: 'Pasquini, Kornaropoulos, Ateniese (2025) — LLMmap: Fingerprinting for Large Language Models. 34th USENIX Security Symposium (USENIX Security 25), pp. 299–318'
+    status: active
+  - text: 'Scarfone, Souppaya, Cody, Orebaugh (2008) — NIST SP 800-115: Technical Guide to Information Security Testing and Assessment, §§4.1–4.2 (OS fingerprinting). National Institute of Standards and Technology'
+    status: active
 - id: T0402.005
   name: Watermark / Registered-Signal Verification
   phase: P04
@@ -241,8 +357,25 @@
     qualification: safer grade
   readiness_measures: []
   notes: Verify a pre-registered signal; strength depends on scheme soundness, registration, threat model,
-    and transformation robustness — not on access tier.
+    and transformation robustness — not on access tier. The cited watermarking studies test image
+    classifiers (CIFAR-10, Caltech-101, MNIST), not LLMs, and laundering attacks remove backdoor
+    watermarks while keeping accuracy (Aiken et al.).
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
+  references:
+  - text: Uchida, Nagai, Sakazawa, Satoh (2017) — Embedding watermarks into deep neural networks
+    status: active
+  - text: 'Aiken, Kim, Woo, Ryoo (2021) — Neural network laundering: Removing black-box backdoor watermarks
+      from deep neural networks. Computers & Security 106, 102277. doi:10.1016/j.cose.2021.102277'
+    status: active
 - id: T0403
   name: Training Data Membership & Provenance Testing
   phase: P04
@@ -257,9 +390,20 @@
     base: Demonstrated
     qualification: per sub-technique — instance-level is Proposed, dataset-level is Demonstrated only
       under stated control conditions. See profile.
-  readiness_measures: []
+  readiness_measures:
+  - id: R0007
+    relationship: strengthening
   notes: 'Instance-level and dataset-level membership inference have different reliability and are graded
     separately, not as one "membership inference" card.'
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   description: 'Training Data Membership & Provenance Testing asks whether specific content was part
     of a model''s training data. The literature draws a sharp reliability line the card must reflect:
@@ -332,11 +476,20 @@
   - G
   maturity:
     base: Proposed
-    qualification: downgraded from Demonstrated — near-random performance outside narrow conditions;
+    qualification: downgraded from Demonstrated — near-random performance outside narrow conditions,
       benchmark practice confounded by member/non-member distribution shift
   readiness_measures: []
   notes: Decides whether one specific record was a training member. Performance is close to random for
     most domains and unstable at low false-positive-rate operating points.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
 - id: T0403.002
   name: Dataset-Level Membership & Provenance Inference
@@ -354,8 +507,28 @@
       and undisclosed, plus access to model loss values
   readiness_measures: []
   notes: Aggregates many weak per-record membership signals across a candidate dataset. Substantially
-    more reliable than instance-level MI when validation-set conditions hold.
+    more reliable than instance-level MI when validation-set conditions hold. Zhang, Das, Kamath and
+    Tramèr argue that evaluating it with held-out counterfactual data is unsound, because publishing
+    data can affect other samples in the training set.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
+  references:
+  - text: Maini et al. (2024) — LLM Dataset Inference — Did you train on my dataset?
+    status: active
+  - text: Puerto et al. (2025) — Scaling Up Membership Inference — When and How Attacks Succeed on Large
+      Language Models
+    status: active
+  - text: Zhang, Das, Kamath, Tramèr (2024) — Position — Membership Inference Attacks Cannot Prove that
+      a Model Was Trained On Your Data
+    status: active
 - id: T0404
   name: Behavioral Deviation Analysis
   phase: P04
@@ -367,8 +540,20 @@
   maturity:
     base: Proposed
     qualification: Demonstrated as a red-teaming method
-  readiness_measures: []
-  notes: Post-incident probing against a baseline.
+  readiness_measures:
+  - id: R0008
+    relationship: enabling
+  notes: Post-incident probing against a baseline. Probing through the interface alone shows that
+    behavior changed, but there is no validated method yet for turning that into a causal claim (G0002).
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: rarely
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
 - id: T0405
   name: Internal Mechanism Attribution
@@ -385,6 +570,15 @@
   readiness_measures: []
   notes: Activation patching / circuit analysis / feature attribution, scoped to incident attribution;
     unvalidated forensically.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
 - id: T0406
   name: Contributing-Factor Assessment
@@ -402,7 +596,19 @@
   readiness_measures: []
   notes: Ranked contributing-factor set with stated confidence and required alternative propositions;
     never a single root cause. Distinguishes technical contribution from model/output source attribution,
-    actor attribution, intent, and legal responsibility — it makes only the first. Feeds T0501.
+    actor attribution, intent, and legal responsibility — it makes only the first. Feeds T0501. With
+    black-box access only, there is no validated path yet from observation to a causal claim (G0002).
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   references:
   - text: 'International Organization for Standardization (2025) — ISO 21043-4:2025: Forensic sciences
@@ -419,7 +625,7 @@
   - G
   maturity:
     base: Demonstrated
-    qualification: null
+    qualification: mechanics
   readiness_measures:
   - id: R0001
     relationship: strengthening
@@ -427,4 +633,18 @@
     relationship: strengthening
   notes: Temporal-causal account; consumes T0302 traces; bridges into P05. Needs clock-sync/time-source/uncertainty
     and correlation IDs (R0001/R0006) to be defensible across distributed components.
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
+  references:
+  - text: 'Kent, Chevalier, Grance, Dang (2006) — NIST SP 800-86: Guide to Integrating Forensic Techniques into Incident Response, §4.4. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-86'
+    status: active

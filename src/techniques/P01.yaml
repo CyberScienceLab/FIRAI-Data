@@ -15,7 +15,24 @@
   notes: Characterizes the incident using four provisional tags — attack, failure, drift, misuse —
     which may overlap. The typing is intentionally coarse so it does not prematurely bias method selection
     in later phases.
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
+  references:
+  - text: 'Cichonski, Millar, Grance, Scarfone (2012) — NIST SP 800-61 Rev. 2: Computer Security Incident Handling Guide, §§3.2.1, 3.2.6. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-61r2 (withdrawn April 2025, cited for the categorisation principle)'
+    status: active
+  - text: 'Coalition for Secure AI (CoSAI), Workstream 2 (2025) — AI Incident Response Framework, V1.0,
+      §1.3.1 Types of AI Incidents. OASIS Open Project'
+    status: active
 - id: T0102
   name: Access Level Determination
   phase: P01
@@ -26,9 +43,22 @@
   maturity:
     base: Proposed
     qualification: null
-  readiness_measures: []
+  readiness_measures:
+  - id: R0009
+    relationship: strengthening
   notes: Signature technique; per-component access assessment; derives the applicable technique set for
     the engagement.
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
 - id: T0103
   name: System Composition Mapping
@@ -43,9 +73,22 @@
   maturity:
     base: Proposed
     qualification: null
-  readiness_measures: []
+  readiness_measures:
+  - id: R0009
+    relationship: strengthening
   notes: 'Architecture in scope: bare model / RAG / tool-using agent / multi-agent; enumerate components.
     Seeds the evidence inventory.'
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
 - id: T0104
   name: Evidence Source Inventory
@@ -69,6 +112,17 @@
   notes: Graded Proposed under the safer-grade rule — although the classical identification activity
     it descends from (NIST SP 800-86) is well established, this AI-specific extension has not yet been
     independently validated at that level.
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   absence_state_vocabulary:
   - confirmed_nonexistent
@@ -110,8 +164,8 @@
   - text: 'Brezinski, Killalea (2002) — RFC 3227 (BCP 55): Guidelines for Evidence Collection and Archiving'
     status: active
   - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
-      technology — Security techniques — Guidelines for identification, collection, acquisition and preservation
-      of digital evidence'
+      technology — Security techniques — Guidelines for identification, collection, acquisition and
+      preservation of digital evidence, 5.4.2 Identification'
     status: active
   - text: European Parliament & Council of the European Union (2024) — Regulation (EU) 2024/1689 (Artificial
       Intelligence Act), Articles 12 and 19
@@ -141,12 +195,27 @@
     index, or a provider silently updating the model behind an unchanged public name). The ordering is
     a default, not a dogma: documented component-level facts (e.g. a contractually pinned model version)
     can override it case-by-case.'
+  lifecycle_stages:
+  - stage: Collect and Process Data
+    applicability: applicable
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active
   references:
   - text: 'Brezinski, Killalea (2002) — RFC 3227 (BCP 55): Guidelines for Evidence Collection and Archiving'
     status: active
   - text: 'Dehghantanha, Homayoun — AI Forensics Across White-, Grey-, and Black-Box Access: A Process
       Model and Research Agenda for Post-Incident Investigation of AI Systems'
+    status: active
+  - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
+      technology — Security techniques — Guidelines for identification, collection, acquisition and preservation
+      of digital evidence, 5.4.2 Identification (prioritization by volatility)'
     status: active
 - id: T0105
   name: Reproducibility Pre-Assessment
@@ -165,4 +234,13 @@
   readiness_measures: []
   notes: Reproducible / intermittent / extinct; governs replay availability (P04) and urgency of live-state
     preservation.
+  lifecycle_stages:
+  - stage: Build and Use Model
+    applicability: applicable
+  - stage: Verify and Validate
+    applicability: applicable
+  - stage: Deploy and Use
+    applicability: applicable
+  - stage: Operate and Monitor
+    applicability: applicable
   status: active

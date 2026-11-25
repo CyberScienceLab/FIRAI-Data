@@ -3,9 +3,22 @@
   "$id": "https://firai.cybersciencelab.com/schemas/technique.schema.json",
   "title": "FIRAI Technique",
   "type": "object",
-  "required": ["id", "name", "phase", "evidence_classes", "access_capability", "maturity", "status"],
+  "required": ["id", "name", "phase", "evidence_classes", "access_capability", "maturity", "lifecycle_stages", "status"],
   "additionalProperties": true,
   "$defs": {
+    "lifecycleStage": {
+      "type": "string",
+      "enum": [
+        "Plan and Design",
+        "Collect and Process Data",
+        "Build and Use Model",
+        "Verify and Validate",
+        "Deploy and Use",
+        "Operate and Monitor",
+        "Use or Impacted by"
+      ],
+      "description": "AI lifecycle stages exactly as named in the Lifecycle Stage row of NIST AI 100-1 (AI RMF 1.0), Figure 3, in lifecycle order."
+    },
     "absenceState": {
       "type": "string",
       "enum": [
@@ -46,13 +59,6 @@
       "items": { "type": "string", "enum": ["W", "G", "B"] },
       "description": "Coverage/reachability only \u2014 not a claim-strength scale (Principle 5)."
     },
-    "evidence_role": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": ["source", "reference", "investigator_generated", "derived_work_product", "corroborative_external"]
-      }
-    },
     "maturity": {
       "type": "object",
       "required": ["base"],
@@ -64,7 +70,21 @@
     },
     "lifecycle_stages": {
       "type": "array",
-      "items": { "type": "string" }
+      "minItems": 1,
+      "description": "FIRAI's mapping of the technique onto the AI lifecycle stages of NIST AI 100-1 (AI RMF 1.0), Figure 3. A stage is listed where the technique's evidence prerequisites can exist and the technique can meaningfully operate. This is structural applicability, not the probability that evidence will be available in a given case. Stages not listed are not mapped. See lifecycle-mapping.md.",
+      "items": {
+        "type": "object",
+        "required": ["stage", "applicability"],
+        "additionalProperties": false,
+        "properties": {
+          "stage": { "$ref": "#/$defs/lifecycleStage" },
+          "applicability": {
+            "type": "string",
+            "enum": ["applicable", "rarely"],
+            "description": "applicable: the required evidence can ordinarily be generated, retained or accessed in this stage under a plausible implementation. rarely: the evidence may be available but needs atypical retention, access or architectural conditions."
+          }
+        }
+      }
     },
     "readiness_measures": {
       "type": "array",
@@ -78,6 +98,11 @@
       }
     },
     "description": { "type": ["string", "null"] },
+    "originality_rationale": {
+      "type": "string",
+      "minLength": 1,
+      "description": "For a Proposed technique with no references: why no prior method is cited, pointing to the dated search in novelty-and-gap-method.md. The Proposed grade is not a reference bypass. Techniques graded above Proposed must cite references instead."
+    },
     "notes": { "type": ["string", "null"] },
     "absence_state_vocabulary": {
       "type": "array",

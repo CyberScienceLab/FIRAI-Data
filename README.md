@@ -9,6 +9,7 @@ and GAP records, plus the schemas and scripts that validate and compile them.
 ```
 src/
   phases.yaml              # P01-P05
+  maturity.yaml            # the maturity scale and its Daubert / Canadian alignment
   evidence-classes.yaml    # EC01-EC07, with the asserted volatility ordering
   techniques/
     P01.yaml ... P05.yaml  # one file per phase; parents + sub-techniques
@@ -22,6 +23,11 @@ tools/
 tests/
   test_validate.py          # pytest: schema + referential-integrity + CI rules
 dist/                       # generated, gitignored — never commit this
+lifecycle-mapping.md        # how techniques map onto the NIST AI RMF lifecycle stages
+VERSION                     # the release version: the single source for compile.py, the site,
+                            #   CITATION.cff and CHANGELOG.md (tests check they agree)
+CITATION.cff                # how to cite FIRAI
+CHANGELOG.md                # what changed in each release
 ```
 
 ## Working with the data
@@ -49,9 +55,24 @@ cross-reference or a schema violation fails the build.
    quality_controls / stop_conditions) for anything but the thinnest stub —
    `tests/test_validate.py` enforces this on flagship pages and will grow to
    cover more IDs as pages are written.
-3. `pytest` locally before opening a PR.
-4. Bump `maturity.base` only via the safer-grade rule (take the lower grade
+3. Set `lifecycle_stages` (required): each NIST AI RMF lifecycle stage in
+   which the technique applies, marked `applicable` or `rarely`. See
+   `lifecycle-mapping.md` for the definitions and the patterns in use.
+4. `pytest` locally before opening a PR.
+5. Bump `maturity.base` only via the safer-grade rule (take the lower grade
    when ambiguous; the community disputes upward).
+
+## Maturity scale
+
+Every technique carries a `maturity.base` grade: `Established`,
+`Demonstrated` or `Proposed`. A grade is a research-and-validation summary —
+never a legal conclusion, and never described as one. The ladder is, however,
+deliberately aligned with the reliability factors courts apply to expert
+evidence — the *Daubert* factors in the United States, and the reliability
+inquiry under *R v Mohan*, *R v J.-L.J.* and *White Burgess* in Canada — so
+that findings built on FIRAI are legible to courts. `src/maturity.yaml`
+records what each grade means and how it aligns with those factors; the
+website renders the scale from that file.
 
 ## ID scheme
 

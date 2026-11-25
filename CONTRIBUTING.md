@@ -24,7 +24,12 @@ principles that govern any change, including ones made by maintainers.
    them determine legal admissibility, which depends on the law and facts of
    a specific forum. The `maturity` field (`Established` / `Demonstrated` /
    `Proposed`) is a research-and-validation summary — never a legal
-   conclusion, and never described as one.
+   conclusion, and never described as one. The ladder is, however,
+   deliberately aligned with the reliability factors courts apply to expert
+   evidence — the *Daubert* factors in the United States, and the reliability
+   inquiry under *R v Mohan*, *R v J.-L.J.* and *White Burgess* in Canada — so
+   that findings built on FIRAI are legible to courts. `src/maturity.yaml`
+   records what each grade means and how it aligns with those factors.
 
 3. **Safer-grade rule.** Where a maturity grade is ambiguous, use the lower,
    safer grade. The community disputes upward with evidence, not the reverse.
@@ -49,11 +54,14 @@ principles that govern any change, including ones made by maintainers.
    concepts (e.g. silent-mutation volatility).
 
 7. **Claim- and validation-awareness is content, not an afterthought.** Every
-   technique states what it does and does not establish
+   technique will state what it does and does not establish
    (`does_establish` / `does_not_establish`), alternative propositions,
    corroboration requirements, quality controls or stop conditions, and
    performance/error/uncertainty characterization — never a single "error
-   rate" number standing in for all of that.
+   rate" number standing in for all of that. In v0.1 only a few flagship
+   techniques carry a full claim profile. The rest are being written during
+   the comment period, and each technique page says when its profile has not
+   been written yet.
 
 8. **Lawful and proportionate collection.** Techniques operate only under
    engagement authority and a legal basis, with purpose limitation, data
@@ -82,6 +90,9 @@ See the data-workflow section in `README.md` for the mechanical steps
 (`pytest`, `tools/compile.py`). This section is about content standards:
 
 - Fill in `claim_profile` for anything beyond the thinnest stub.
+- Set `lifecycle_stages` on every technique, following the definitions in
+  `lifecycle-mapping.md`. The stage names are NIST's, but the mapping is
+  FIRAI's own interpretation.
 - If you're asserting a technique is the first/only one to do something,
   scope the claim by date ("as of `<date>`, within the documented search —
   see `novelty-and-gap-method.md`") rather than an unqualified absolute.

@@ -23,6 +23,20 @@ SRC = os.path.join(ROOT, "src")
 DIST = os.path.join(ROOT, "dist")
 
 
+def read_version():
+    """The release version, from the single VERSION file at the repo root.
+
+    CITATION.cff, CHANGELOG.md and the website all follow this file; tests
+    check that they agree with it.
+    """
+    with open(os.path.join(ROOT, "VERSION"), encoding="utf-8") as f:
+        version = f.read().strip()
+    parts = version.split(".")
+    if len(parts) != 3 or not all(p.isdigit() for p in parts):
+        sys.exit(f"VERSION must be MAJOR.MINOR.PATCH, got {version!r}")
+    return version
+
+
 def load_yaml(path):
     with open(path) as f:
         return yaml.safe_load(f) or []
@@ -58,6 +72,7 @@ def main():
     techniques = load_all("techniques/*.yaml")
     readiness = load_all("readiness/*.yaml")
     gaps = load_all("gaps/*.yaml")
+    maturity = sorted(load_yaml(os.path.join(SRC, "maturity.yaml")), key=lambda m: m["order"])
 
     # -- basic referential checks (full validation lives in tests/, this is a
     #    fail-fast sanity gate so a broken compile never reaches dist/) --
@@ -85,11 +100,15 @@ def main():
             print(f"  - {e}", file=sys.stderr)
         sys.exit(1)
 
+    version = read_version()
     compiled = {
-        "firai_version": "0.1",
-        "schema_version": "0.1",
+        "firai_version": version,
+        # The schema is versioned with the release (MAJOR.MINOR) until a
+        # release changes the schema without changing the data, or vice versa.
+        "schema_version": ".".join(version.split(".")[:2]),
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "counts": compute_counts(techniques, evidence_classes, gaps, readiness),
+        "maturity_scale": maturity,
         "phases": phases,
         "evidence_classes": evidence_classes,
         "techniques": techniques,

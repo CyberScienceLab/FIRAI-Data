@@ -19,6 +19,7 @@ import os
 import re
 import subprocess
 import sys
+import warnings
 
 import jsonschema
 import pytest
@@ -76,6 +77,11 @@ def gaps():
     return load_all("gaps/*.yaml")
 
 
+@pytest.fixture(scope="module")
+def maturity():
+    return load_yaml(os.path.join(SRC, "maturity.yaml"))
+
+
 # --------------------------------------------------------------- schema checks
 def test_evidence_classes_validate(evidence_classes):
     schema = load_schema("evidence-class.schema.json")
@@ -99,6 +105,72 @@ def test_techniques_validate(techniques):
     schema = load_schema("technique.schema.json")
     for t in techniques:
         jsonschema.validate(t, schema)
+
+
+def test_maturity_validate(maturity):
+    schema = load_schema("maturity.schema.json")
+    for m in maturity:
+        jsonschema.validate(m, schema)
+
+
+def test_maturity_scale_matches_technique_enum(maturity):
+    # maturity.yaml is the single source of the scale's wording, so it must
+    # define exactly the grades a technique can carry: no more, no fewer.
+    technique_schema = load_schema("technique.schema.json")
+    grades = technique_schema["properties"]["maturity"]["properties"]["base"]["enum"]
+    ids = [m["id"] for m in maturity]
+    assert len(ids) == len(set(ids)), "duplicate grades in maturity.yaml"
+    assert set(ids) == set(grades), f"maturity.yaml grades {ids} != technique enum {grades}"
+
+
+def test_maturity_order_is_a_permutation(maturity):
+    orders = sorted(m["order"] for m in maturity)
+    assert orders == list(range(1, len(maturity) + 1))
+
+
+# ----------------------------------------------------------- lifecycle stages
+# Stage names exactly as in the Lifecycle Stage row of NIST AI 100-1 (AI RMF
+# 1.0), Figure 3, in lifecycle order. Pinned here so a schema edit cannot
+# silently drift from the NIST wording.
+NIST_AI_RMF_LIFECYCLE_STAGES = [
+    "Plan and Design",
+    "Collect and Process Data",
+    "Build and Use Model",
+    "Verify and Validate",
+    "Deploy and Use",
+    "Operate and Monitor",
+    "Use or Impacted by",
+]
+
+
+def test_lifecycle_vocabulary_matches_nist_ai_rmf():
+    schema = load_schema("technique.schema.json")
+    assert schema["$defs"]["lifecycleStage"]["enum"] == NIST_AI_RMF_LIFECYCLE_STAGES
+
+
+def test_every_technique_has_a_lifecycle_stage(techniques):
+    for t in techniques:
+        stages = t.get("lifecycle_stages") or []
+        assert stages, f"{t['id']}: no lifecycle_stages"
+        assert any(s["applicability"] == "applicable" for s in stages), (
+            f"{t['id']}: lists only 'rarely' stages; at least one stage must be applicable"
+        )
+
+
+def test_lifecycle_stages_listed_once_each(techniques):
+    # one entry per stage, so a stage can never be both applicable and rarely
+    for t in techniques:
+        names = [s["stage"] for s in t.get("lifecycle_stages") or []]
+        dupes = sorted({n for n in names if names.count(n) > 1})
+        assert not dupes, f"{t['id']}: lifecycle stage listed more than once: {dupes}"
+
+
+def test_lifecycle_stages_in_lifecycle_order(techniques):
+    for t in techniques:
+        names = [s["stage"] for s in t.get("lifecycle_stages") or []]
+        assert names == sorted(names, key=NIST_AI_RMF_LIFECYCLE_STAGES.index), (
+            f"{t['id']}: lifecycle_stages out of NIST lifecycle order"
+        )
 
 
 # --------------------------------------------------------- uniqueness / format
@@ -141,6 +213,60 @@ def test_technique_readiness_measures_resolve(techniques, readiness):
             assert rm["id"] in readiness_ids, (
                 f"{t['id']}: readiness measure {rm['id']} does not exist"
             )
+
+
+def test_every_gap_is_named_by_a_technique(techniques, gaps):
+    # A gap no technique points to is invisible from the technique pages.
+    text = " ".join(f"{t.get('notes') or ''} {t.get('description') or ''}" for t in techniques)
+    orphaned = sorted(g["id"] for g in gaps if not re.search(rf"\b{g['id']}\b", text))
+    assert not orphaned, f"gaps not named in any technique's notes or description: {orphaned}"
+
+
+# ------------------------------------------------------------ reference rule
+def test_techniques_above_proposed_have_references(techniques):
+    # A grade above Proposed claims published support, so it must cite it.
+    # This is the check that would have caught the item 2 gap.
+    missing = sorted(
+        f"{t['id']} ({t['maturity']['base']})"
+        for t in techniques
+        if t["maturity"]["base"] != "Proposed" and not t.get("references")
+    )
+    assert not missing, f"graded above Proposed but no references: {missing}"
+
+
+def test_originality_rationale_only_on_proposed(techniques):
+    # The rationale explains a missing citation for research-stage work. It
+    # cannot stand in for references on a technique graded above Proposed.
+    misplaced = sorted(
+        t["id"] for t in techniques
+        if t.get("originality_rationale") and t["maturity"]["base"] != "Proposed"
+    )
+    assert not misplaced, f"originality_rationale on a technique graded above Proposed: {misplaced}"
+
+
+def test_proposed_without_references_have_rationale(techniques):
+    # Warning only for now: a Proposed technique should cite its closest prior
+    # art or give an originality_rationale. This becomes a failure later.
+    missing = sorted(
+        t["id"] for t in techniques
+        if t["maturity"]["base"] == "Proposed"
+        and not t.get("references")
+        and not t.get("originality_rationale")
+    )
+    if missing:
+        warnings.warn(
+            f"{len(missing)} Proposed technique(s) have neither references nor an "
+            f"originality_rationale: {', '.join(missing)}",
+            UserWarning,
+        )
+
+
+def test_every_readiness_measure_is_linked(techniques, readiness):
+    # A readiness measure exists to support techniques. One that no technique
+    # links is either unused or missing its links.
+    linked = {rm["id"] for t in techniques for rm in t.get("readiness_measures") or []}
+    unlinked = sorted(r["id"] for r in readiness if r["id"] not in linked)
+    assert not unlinked, f"readiness measures not linked from any technique: {unlinked}"
 
 
 def test_technique_evidence_classes_resolve(techniques, evidence_classes, phases):
@@ -202,3 +328,34 @@ def test_compile_produces_dist_matching_src_counts(techniques, evidence_classes,
     assert counts["evidence_classes"] == len(evidence_classes)
     assert counts["gaps"] == len(gaps)
     assert counts["readiness_measures"] == len(readiness)
+    assert [m["id"] for m in compiled["maturity_scale"]] == ["Established", "Demonstrated", "Proposed"]
+    assert compiled["firai_version"] == read_version()
+
+
+# ------------------------------------------------------------------ release
+def read_version():
+    with open(os.path.join(ROOT, "VERSION"), encoding="utf-8") as f:
+        return f.read().strip()
+
+
+def test_version_is_semver():
+    assert re.fullmatch(r"\d+\.\d+\.\d+", read_version()), "VERSION must be MAJOR.MINOR.PATCH"
+
+
+def test_citation_cff_matches_version():
+    with open(os.path.join(ROOT, "CITATION.cff"), encoding="utf-8") as f:
+        cff = yaml.safe_load(f)
+    assert str(cff["version"]) == read_version(), "CITATION.cff version differs from VERSION"
+    assert cff["cff-version"] == "1.2.0"
+    for key in ("title", "authors", "message", "license"):
+        assert cff.get(key), f"CITATION.cff is missing {key}"
+
+
+def test_changelog_has_entry_for_version():
+    with open(os.path.join(ROOT, "CHANGELOG.md"), encoding="utf-8") as f:
+        changelog = f.read()
+    headings = re.findall(r"^## \[([^\]]+)\]", changelog, flags=re.M)
+    assert headings, "CHANGELOG.md has no version headings"
+    assert headings[0] == read_version(), (
+        f"newest CHANGELOG.md entry is {headings[0]}, VERSION is {read_version()}"
+    )
