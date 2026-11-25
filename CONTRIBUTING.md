@@ -54,11 +54,14 @@ principles that govern any change, including ones made by maintainers.
    concepts (e.g. silent-mutation volatility).
 
 7. **Claim- and validation-awareness is content, not an afterthought.** Every
-   technique states what it does and does not establish
+   technique will state what it does and does not establish
    (`does_establish` / `does_not_establish`), alternative propositions,
    corroboration requirements, quality controls or stop conditions, and
    performance/error/uncertainty characterization — never a single "error
-   rate" number standing in for all of that.
+   rate" number standing in for all of that. In v0.1 only a few flagship
+   techniques carry a full claim profile. The rest are being written during
+   the comment period, and each technique page says when its profile has not
+   been written yet.
 
 8. **Lawful and proportionate collection.** Techniques operate only under
    engagement authority and a legal basis, with purpose limitation, data

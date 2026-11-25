@@ -19,7 +19,7 @@
   name: Analysis
   order: 4
   scope: Derive what happened and why, with what confidence. Attribution lives here. Every inferential
-    technique states does/does-not-establish and alternative propositions (Principle 8).
+    technique will state what it does and does not establish, with alternative propositions (Principle 7).
 - id: P05
   name: Reporting
   order: 5
