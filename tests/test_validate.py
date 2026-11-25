@@ -215,6 +215,13 @@ def test_technique_readiness_measures_resolve(techniques, readiness):
             )
 
 
+def test_every_gap_is_named_by_a_technique(techniques, gaps):
+    # A gap no technique points to is invisible from the technique pages.
+    text = " ".join(f"{t.get('notes') or ''} {t.get('description') or ''}" for t in techniques)
+    orphaned = sorted(g["id"] for g in gaps if not re.search(rf"\b{g['id']}\b", text))
+    assert not orphaned, f"gaps not named in any technique's notes or description: {orphaned}"
+
+
 # ------------------------------------------------------------ reference rule
 def test_techniques_above_proposed_have_references(techniques):
     # A grade above Proposed claims published support, so it must cite it.

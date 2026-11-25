@@ -10,7 +10,9 @@
     base: Established
     qualification: null
   readiness_measures: []
-  notes: Hash-verified checkpoints/adapters at rest. ISO/IEC 27037 ancestry.
+  notes: Hash-verified checkpoints/adapters at rest. ISO/IEC 27037 ancestry. Serialized model files are
+    untrusted and some formats can run code when loaded, so acquire and hash them without loading them
+    (G0006).
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: applicable
@@ -83,7 +85,8 @@
   - id: R0010
     relationship: enabling
   notes: Prompt/response, session metadata, agent-invocation records. Availability is an applicability
-    condition.
+    condition. When the provider holds the logs, there is no standard way yet to require their
+    preservation or export (G0005).
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: rarely
@@ -220,8 +223,8 @@
   - id: R0007
     relationship: enabling
   notes: 'Lifecycle applicability does the honest work: applicable at Data-prep/Training/Fine-tuning;
-    rarely at Deployment without provider cooperation or legal process. Once access is lawful, acquiring
-    a dataset is ordinary data
+    rarely at Deployment without provider cooperation or legal process. Access to training data held
+    by a provider is an open gap (G0005). Once access is lawful, acquiring a dataset is ordinary data
     acquisition with hashing. Court-ordered inspection gives access but produces no copy and no hash,
     so it does not complete acquisition.'
   lifecycle_stages:

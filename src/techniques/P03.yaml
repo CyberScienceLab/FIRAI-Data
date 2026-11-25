@@ -11,7 +11,9 @@
     qualification: 'image and text classifiers, not shown on large LLMs'
   readiness_measures: []
   notes: Carve/reconstruct architecture + weights from the memory image acquired by T0202. The recovered
-    model is a derived work product, not the same object as an at-rest checkpoint. Secure enclaves and trusted
+    model is a derived work product, not the same object as an at-rest checkpoint. Treat the recovered
+    model as hostile and examine it in isolation (G0006). Recovery relies on research tooling, because
+    validated examination tools for AI artifacts do not exist yet (G0004). Secure enclaves and trusted
     execution environments restrict memory acquisition, which limits recovery (AI Psychiatry, §5.2).
   lifecycle_stages:
   - stage: Build and Use Model
@@ -41,7 +43,7 @@
     qualification: 'single-application session reconstruction, agent tool-call traces rest on one preprint'
   readiness_measures: []
   notes: Parse logs/memory records into structured traces. Parsing is Examination; causal reading is Analysis
-    (routes to T0406).
+    (routes to T0406). There are no validated parsers for AI log and memory formats yet (G0004).
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: rarely
@@ -73,7 +75,7 @@
     qualification: null
   readiness_measures: []
   notes: Correlate traces across agents; resolve actor/tool-call identity; causal interpretation is explicitly
-    T0406, not here.
+    T0406, not here. Cross-agent correlation has no validated tooling yet (G0004).
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: rarely
@@ -104,7 +106,8 @@
     relationship: strengthening
   notes: Diff questioned artifact vs authenticated known-good reference to localize parameter changes.
     Four result levels (byte-identical / exact aligned-tensor / normalized-then-compared / interpretation),
-    each supporting different claim strength. Feeds T0406.
+    each supporting different claim strength. Feeds T0406. Diffing currently depends on ad hoc tooling,
+    because validated examination tools for model artifacts do not exist yet (G0004).
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: applicable

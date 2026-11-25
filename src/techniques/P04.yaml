@@ -29,7 +29,7 @@
     Tool schemas
     Time-dependent external services
 
-    Separate exact/state-matched from distributional replay; sandbox side effects. Failed replay does not refute the incident.
+    Separate exact/state-matched from distributional replay; sandbox side effects. Failed replay does not refute the incident. Replay runs untrusted artifacts, so use an isolated environment with external tool calls disabled or simulated (G0006).
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: rarely
@@ -543,7 +543,8 @@
   readiness_measures:
   - id: R0008
     relationship: enabling
-  notes: Post-incident probing against a baseline.
+  notes: Post-incident probing against a baseline. Probing through the interface alone shows that
+    behavior changed, but there is no validated method yet for turning that into a causal claim (G0002).
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: rarely
@@ -595,7 +596,8 @@
   readiness_measures: []
   notes: Ranked contributing-factor set with stated confidence and required alternative propositions;
     never a single root cause. Distinguishes technical contribution from model/output source attribution,
-    actor attribution, intent, and legal responsibility — it makes only the first. Feeds T0501.
+    actor attribution, intent, and legal responsibility — it makes only the first. Feeds T0501. With
+    black-box access only, there is no validated path yet from observation to a causal claim (G0002).
   lifecycle_stages:
   - stage: Collect and Process Data
     applicability: applicable

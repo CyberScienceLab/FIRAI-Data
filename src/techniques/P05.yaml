@@ -27,7 +27,7 @@
     Alternative propositions
     Case-specific limitations & stop conditions
 
-    Any short claim label derives from this profile, never from access alone.
+    Any short claim label derives from this profile, never from access alone. There is no settled method yet for characterizing performance, error and uncertainty in AI forensic findings (G0001).
   lifecycle_stages:
   - stage: Collect and Process Data
     applicability: applicable
