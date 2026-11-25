@@ -1,68 +1,77 @@
 - id: R0001
   name: AI Interaction Logging & Retention
   type: strengthen
-  description: Tamper-evidence, clock-sync, time source & uncertainty, correlation IDs, actor identity,
-    schema/version, retention, minimization, provider export format.
+  description: Keep a tamper-evident record of every interaction with the AI system. Each entry
+    should carry a timestamp from a synchronized clock, a correlation ID and the identity of whoever
+    acted. Logs follow a versioned schema, hold only the data that is needed, are kept for a defined
+    period, and can be exported from the provider in a known format.
 - id: R0002
   name: Model Checkpoint & Version Archiving
   type: strengthen
-  description: Retained, hash-recorded copies of released model artifacts and relevant checkpoints,
-    including adapters and fine-tune deltas, with version identifiers, associated training runs,
-    timestamps and retention periods, so deployed models can be verified and compared against
-    known-good references.
+  description: Keep verifiable copies of every model you release, along with the checkpoints that
+    matter, including adapters and fine-tuning changes. Record a hash and a version for each one and
+    link it to the training run that produced it. Investigators can then confirm which model was
+    deployed and compare it with a known-good version.
 - id: R0003
   name: Inference Configuration Versioning
   type: strengthen
-  description: Version-controlled records of system prompts, decoding parameters, guardrail and
-    safety-filter settings, model and version identifiers, routing rules and runtime overrides, with
-    timestamped and attributable changes, so the effective configuration at the time of an incident
-    can be reconstructed.
+  description: Track every change to how the model is run. This covers system prompts, decoding
+    settings, guardrails, model versions, routing rules and runtime overrides. When each change is
+    timestamped and attributed to someone, investigators can rebuild the exact configuration that
+    was in place when the incident happened.
 - id: R0004
   name: Retrieval Index Snapshotting
   type: new
-  description: Addresses G0003 partial.
+  description: Take regular snapshots of retrieval indexes so investigators can see what the system
+    was able to retrieve at the time of an incident. This partly addresses G0003.
 - id: R0005
   name: Model Signing, Attestation & Provenance Registration
   type: strengthen
-  description: Signed model/package manifest, trusted identity, key governance, transparency/registry
-    record, deployment attestation; watermark/fingerprint registration is an optional child measure, not
-    the default control.
+  description: Sign each model package and its manifest with a trusted identity, and manage the
+    signing keys properly. Record the model in a transparency log or registry, and attest to which
+    version is deployed. Registering a watermark or fingerprint is optional and is not the default
+    control.
 - id: R0006
   name: Agent Action & Tool-Call Telemetry
   type: strengthen
-  description: Structured records of agent execution steps, including tool or function calls,
-    arguments, available results, agent identities, correlation and parent IDs, timestamps from
-    synchronized time sources, execution order, errors and retries, retained alongside interaction
-    logs (R0001) to support reconstruction of agent activity.
+  description: 'Record each step an agent takes: the tool it called, the arguments it used and the
+    result, when one comes back. Each record names the agent, carries correlation and parent IDs and
+    uses a synchronized clock, so the steps can be put in order, including errors and retries. These
+    records sit alongside the interaction logs in R0001.'
 - id: R0007
   name: Training Data Provenance Records
   type: strengthen
-  description: Records of dataset sources, licences, collection dates, versions and content hashes,
-    preprocessing and filtering steps, train, validation and test splits including held-out sets,
-    and links between training or fine-tuning runs and their exact dataset versions, so training
-    inputs can be traced and verified.
+  description: Keep a record of where training data came from and what was done to it. This includes
+    sources, licences, collection dates, versions and content hashes, each preprocessing and
+    filtering step, and how the data was split, including any held-out set. Every training or
+    fine-tuning run should point to the exact dataset version it used.
 - id: R0008
   name: Behavioral Baseline Capture
   type: new
-  description: Recorded reference prompts and model responses captured at release and after model or
-    configuration changes, together with model versions, effective configurations, evaluation
-    conditions and repeated outputs where appropriate, so post-incident behavior can be compared
-    against a documented baseline.
+  description: Capture how the model behaves before anything goes wrong. Run a fixed set of
+    reference prompts at release and after each model or configuration change, and keep the
+    responses with the model version, configuration and test conditions. Because outputs can vary
+    from run to run, keep repeated outputs where that matters.
 - id: R0009
   name: AI System, Component & Custodian Register
   type: strengthen
-  description: Component identity, owner/custodian, provider, model/package ID, deployment location, data
-    stores, tools/endpoints, logging locations, retention, export route, escalation contact. Strengthens
-    T0102/T0103/T0104.
+  description: 'Keep an up-to-date register of every component in the AI system: what it is, who owns
+    it, which provider supplies it and where it runs. For each component, note its data stores,
+    tools, logs and retention period, how its evidence can be exported, and who to contact during an
+    incident.'
 - id: R0010
   name: Supplier Forensic Preservation, Export & Change-Notice Clauses
   type: strengthen
-  description: Preservation capability, export format, timestamps/time source, integrity metadata, retention,
-    model/config change notices, support for legal requests, evidence-delivery responsibility. Addresses
-    G0005 partial.
+  description: Write forensic requirements into supplier contracts. Suppliers should be able to
+    preserve evidence and export it in an agreed format with reliable timestamps and integrity data.
+    They should also keep it for an agreed period, give notice of model or configuration changes,
+    support legal requests, and be clear about who delivers the evidence. This partly addresses
+    G0005.
 - id: R0011
   name: Reproducible AI Deployment Manifest / AI BOM
   type: strengthen
-  description: Model+adapter digests/signatures, tokenizer, container/image, code revision, dependencies,
-    runtime/hardware where material, prompt/config version, retrieval snapshot, embedding model, tool
-    schemas, attestation chain. A checkpoint alone is not the deployed system.
+  description: Keep a manifest that records exactly what was deployed. It lists the model and
+    adapter digests and signatures, the tokenizer, container image, code revision and dependencies,
+    the prompt and configuration version, the retrieval snapshot and embedding model, the tool
+    schemas and the attestation chain. A checkpoint on its own does not describe the deployed
+    system.
