@@ -5,8 +5,7 @@
 # Quoted passages are verbatim from the judgments, with pinpoint citations.
 - id: Established
   order: 1
-  meaning: Widely adopted with a long, verified track record. The method's mechanics are well tested,
-    even where validation for forensic use is newer.
+  meaning: The method has general acceptance in the relevant scientific community.
   daubert_alignment: >-
     Corresponds to general acceptance in the relevant scientific community: "Widespread acceptance can
     be an important factor in ruling particular evidence admissible" (Daubert v. Merrell Dow
@@ -15,9 +14,9 @@
     acceptance "is only one of several factors to be considered" (R. v. J.-L.J., 2000 SCC 51, para. 34),
     so this grade does not on its own show that the reliability standard is met.
   canada_alignment: >-
-    Corresponds to a method that is not novel science, so it falls outside the "special scrutiny" that
-    applies to "expert evidence which advances a novel scientific theory or technique" (R. v. Mohan,
-    [1994] 2 S.C.R. 9, p. 25). Reliability is still weighed at the gatekeeping stage, where "the judge
+    Corresponds to a method that is not novel science, so it generally avoids the "special scrutiny"
+    associated with "expert evidence which advances a novel scientific theory or technique" (R. v. Mohan,
+    [1994] 2 S.C.R. 9, p. 25), unless it is applied for a novel purpose. Reliability is still weighed at the gatekeeping stage, where "the judge
     balances the potential risks and benefits of admitting the evidence in order to decide whether the
     potential benefits justify the risks" (White Burgess Langille Inman v. Abbott and Haliburton Co.,
     2015 SCC 23, para. 24). An established method used for a new purpose returns to special scrutiny:
@@ -35,8 +34,8 @@
     status: active
 - id: Demonstrated
   order: 2
-  meaning: Shown to work in practice or in adjacent research domains, but not yet independently validated
-    for forensic use.
+  meaning: The method has been tested and peer reviewed, but not yet independently validated for forensic
+    use.
   daubert_alignment: >-
     Corresponds to a method that "can be (and has been) tested" and "has been subjected to peer review
     and publication" (Daubert v. Merrell Dow Pharmaceuticals, Inc., 509 U.S. 579, 593-94 (1993)), but
@@ -64,11 +63,11 @@
     status: active
 - id: Proposed
   order: 3
-  meaning: Research-stage, with no independent validation yet. Ambiguous cases default here under the
-    safer-grade rule.
+  meaning: The method has not yet demonstrated sufficient testing, peer review and acceptance.
   daubert_alignment: >-
-    The method does not yet meet the factors of whether it "can be (and has been) tested", whether it
-    "has been subjected to peer review and publication", and general acceptance, and has no established
+    The method has not yet demonstrated sufficient support under the factors of whether it "can be (and
+    has been) tested", whether it "has been subjected to peer review and publication", and general
+    acceptance, and has no established
     "known or potential rate of error" or "standards controlling the technique's operation" for forensic
     use (Daubert v. Merrell Dow Pharmaceuticals, Inc., 509 U.S. 579, 593-94 (1993)).
   canada_alignment: >-
