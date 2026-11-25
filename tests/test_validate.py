@@ -329,3 +329,33 @@ def test_compile_produces_dist_matching_src_counts(techniques, evidence_classes,
     assert counts["gaps"] == len(gaps)
     assert counts["readiness_measures"] == len(readiness)
     assert [m["id"] for m in compiled["maturity_scale"]] == ["Established", "Demonstrated", "Proposed"]
+    assert compiled["firai_version"] == read_version()
+
+
+# ------------------------------------------------------------------ release
+def read_version():
+    with open(os.path.join(ROOT, "VERSION"), encoding="utf-8") as f:
+        return f.read().strip()
+
+
+def test_version_is_semver():
+    assert re.fullmatch(r"\d+\.\d+\.\d+", read_version()), "VERSION must be MAJOR.MINOR.PATCH"
+
+
+def test_citation_cff_matches_version():
+    with open(os.path.join(ROOT, "CITATION.cff"), encoding="utf-8") as f:
+        cff = yaml.safe_load(f)
+    assert str(cff["version"]) == read_version(), "CITATION.cff version differs from VERSION"
+    assert cff["cff-version"] == "1.2.0"
+    for key in ("title", "authors", "message", "license"):
+        assert cff.get(key), f"CITATION.cff is missing {key}"
+
+
+def test_changelog_has_entry_for_version():
+    with open(os.path.join(ROOT, "CHANGELOG.md"), encoding="utf-8") as f:
+        changelog = f.read()
+    headings = re.findall(r"^## \[([^\]]+)\]", changelog, flags=re.M)
+    assert headings, "CHANGELOG.md has no version headings"
+    assert headings[0] == read_version(), (
+        f"newest CHANGELOG.md entry is {headings[0]}, VERSION is {read_version()}"
+    )

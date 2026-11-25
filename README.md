@@ -24,6 +24,10 @@ tests/
   test_validate.py          # pytest: schema + referential-integrity + CI rules
 dist/                       # generated, gitignored — never commit this
 lifecycle-mapping.md        # how techniques map onto the NIST AI RMF lifecycle stages
+VERSION                     # the release version: the single source for compile.py, the site,
+                            #   CITATION.cff and CHANGELOG.md (tests check they agree)
+CITATION.cff                # how to cite FIRAI
+CHANGELOG.md                # what changed in each release
 ```
 
 ## Working with the data
