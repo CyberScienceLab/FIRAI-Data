@@ -28,11 +28,10 @@
     applicability: applicable
   status: active
   references:
-  - text: 'Cichonski, Millar, Grance, Scarfone (2012) — NIST SP 800-61 Rev. 2: Computer Security Incident Handling Guide, §3.2.1. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-61r2 (withdrawn April 3, 2025; superseded by SP 800-61 Rev. 3)'
+  - text: 'Cichonski, Millar, Grance, Scarfone (2012) — NIST SP 800-61 Rev. 2: Computer Security Incident Handling Guide, §§3.2.1, 3.2.6. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-61r2 (withdrawn April 2025, cited for the categorisation principle)'
     status: active
-  - text: 'Howard, Longstaff (1998) — A Common Language for Computer Security Incidents. Sandia National Laboratories, SAND98-8667'
-    status: active
-  - text: 'Kumar, O''Brien, Albert, Viljöen, Snover (2019) — Failure Modes in Machine Learning. arXiv:1911.11034'
+  - text: 'Coalition for Secure AI (CoSAI), Workstream 2 (2025) — AI Incident Response Framework, V1.0,
+      §1.3.1 Types of AI Incidents. OASIS Open Project'
     status: active
 - id: T0102
   name: Access Level Determination
@@ -165,8 +164,8 @@
   - text: 'Brezinski, Killalea (2002) — RFC 3227 (BCP 55): Guidelines for Evidence Collection and Archiving'
     status: active
   - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
-      technology — Security techniques — Guidelines for identification, collection, acquisition and preservation
-      of digital evidence'
+      technology — Security techniques — Guidelines for identification, collection, acquisition and
+      preservation of digital evidence, 5.4.2 Identification'
     status: active
   - text: European Parliament & Council of the European Union (2024) — Regulation (EU) 2024/1689 (Artificial
       Intelligence Act), Articles 12 and 19
@@ -213,6 +212,10 @@
     status: active
   - text: 'Dehghantanha, Homayoun — AI Forensics Across White-, Grey-, and Black-Box Access: A Process
       Model and Research Agenda for Post-Incident Investigation of AI Systems'
+    status: active
+  - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
+      technology — Security techniques — Guidelines for identification, collection, acquisition and preservation
+      of digital evidence, 5.4.2 Identification (prioritization by volatility)'
     status: active
 - id: T0105
   name: Reproducibility Pre-Assessment

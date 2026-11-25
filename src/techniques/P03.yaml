@@ -8,10 +8,11 @@
   - W
   maturity:
     base: Demonstrated
-    qualification: null
+    qualification: 'image and text classifiers, not shown on large LLMs'
   readiness_measures: []
   notes: Carve/reconstruct architecture + weights from the memory image acquired by T0202. The recovered
-    model is a derived work product, not the same object as an at-rest checkpoint.
+    model is a derived work product, not the same object as an at-rest checkpoint. Secure enclaves and trusted
+    execution environments restrict memory acquisition, which limits recovery (AI Psychiatry, §5.2).
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: applicable
@@ -37,7 +38,7 @@
   - G
   maturity:
     base: Demonstrated
-    qualification: single-agent
+    qualification: 'single-application session reconstruction, agent tool-call traces rest on one preprint'
   readiness_measures: []
   notes: Parse logs/memory records into structured traces. Parsing is Examination; causal reading is Analysis
     (routes to T0406).
@@ -53,10 +54,10 @@
   status: active
   references:
   - text: 'Gruber, Hilgert (2026) — Foundations for Investigations of Agentic AI Systems from the Forensic
-      Analysis of OpenClaw. arXiv:2604.05589'
+      Analysis of OpenClaw. arXiv:2604.05589 (preprint)'
     status: active
-  - text: 'Zhu, He, Liu, He, Xie, Zheng, Lyu (2019) — Tools and Benchmarks for Automated Log Parsing. ICSE-SEIP
-      2019'
+  - text: 'Jeong, Lee, Park (2025) — LangurTrace: Forensic analysis of local LLM applications. Forensic
+      Science International: Digital Investigation 54, 301987. doi:10.1016/j.fsidi.2025.301987'
     status: active
 - id: T0302.001
   name: Multi-Agent Trace Correlation & Actor Resolution
@@ -160,5 +161,8 @@
   - text: 'Lyle, Guttman, Butler, Sauerwein, Reed, Lloyd (2022) — NIST IR 8354: Digital Investigation Techniques
       — A NIST Scientific Foundation Review'
     status: active
-  - text: ISO/IEC 27037 — hash verification and integrity discipline
+  - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
+      technology — Security techniques — Guidelines for identification, collection, acquisition and
+      preservation of digital evidence, 5.4.4 Acquisition and 7.1.4 Preservation (verification functions and digital
+      signatures)'
     status: active

@@ -12,7 +12,8 @@
   - G
   maturity:
     base: Demonstrated
-    qualification: null
+    qualification: 'state-matched reproduction shown for recovered classifiers, LLM replay with sampling or
+      external services not validated'
   readiness_measures: []
   notes: |-
     Broadened prerequisites:
@@ -54,7 +55,8 @@
   - G
   maturity:
     base: Demonstrated
-    qualification: null
+    qualification: 'state-matched reproduction shown for recovered classifiers, LLM replay with sampling or
+      external services not validated'
   readiness_measures: []
   notes: Identical-config reproduction under pinned state.
   lifecycle_stages:
@@ -83,8 +85,12 @@
   maturity:
     base: Demonstrated
     qualification: null
-  readiness_measures: []
-  notes: Inject exact retrieved context; isolate retrieval-vs-generation fault.
+  readiness_measures:
+  - id: R0004
+    relationship: enabling
+  notes: Inject exact retrieved context; isolate retrieval-vs-generation fault. The result is valid only
+    if the retrieval store is unchanged since the incident or a snapshot from that time was preserved
+    (R0004). Reconstructing a store that has drifted is an open gap (G0003).
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: rarely
@@ -114,7 +120,7 @@
   - B
   maturity:
     base: Demonstrated
-    qualification: per sub-technique; .001 Established mechanics. Method families have different evidence
+    qualification: per sub-technique, .001 Established mechanics. Method families have different evidence
       bases and none has forensic validation.
   readiness_measures:
   - id: R0005
@@ -204,9 +210,12 @@
   - text: Uchida, Nagai, Sakazawa, Satoh (2017) — Embedding watermarks into deep neural networks
     status: active
   - text: 'Aiken, Kim, Woo, Ryoo (2021) — Neural network laundering: Removing black-box backdoor watermarks
-      from deep neural networks'
+      from deep neural networks. Computers & Security 106, 102277. doi:10.1016/j.cose.2021.102277'
     status: active
-  - text: ISO/IEC 27037 — integrity discipline
+  - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
+      technology — Security techniques — Guidelines for identification, collection, acquisition and
+      preservation of digital evidence, 5.4.4 Acquisition and 7.1.4 Preservation (verification functions and digital
+      signatures)'
     status: active
 - id: T0402.001
   name: Cryptographic Package Identity & Attestation Verification
@@ -243,7 +252,10 @@
     status: active
   - text: SLSA Community (2025) — SLSA Specification (Version 1.2)
     status: active
-  - text: ISO/IEC 27037 — integrity discipline
+  - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
+      technology — Security techniques — Guidelines for identification, collection, acquisition and
+      preservation of digital evidence, 5.4.4 Acquisition and 7.1.4 Preservation (verification functions and digital
+      signatures)'
     status: active
 - id: T0402.002
   name: Parameter-Space Fingerprint Comparison
@@ -345,7 +357,9 @@
     qualification: safer grade
   readiness_measures: []
   notes: Verify a pre-registered signal; strength depends on scheme soundness, registration, threat model,
-    and transformation robustness — not on access tier.
+    and transformation robustness — not on access tier. The cited watermarking studies test image
+    classifiers (CIFAR-10, Caltech-101, MNIST), not LLMs, and laundering attacks remove backdoor
+    watermarks while keeping accuracy (Aiken et al.).
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: applicable
@@ -360,7 +374,7 @@
   - text: Uchida, Nagai, Sakazawa, Satoh (2017) — Embedding watermarks into deep neural networks
     status: active
   - text: 'Aiken, Kim, Woo, Ryoo (2021) — Neural network laundering: Removing black-box backdoor watermarks
-      from deep neural networks'
+      from deep neural networks. Computers & Security 106, 102277. doi:10.1016/j.cose.2021.102277'
     status: active
 - id: T0403
   name: Training Data Membership & Provenance Testing
@@ -462,7 +476,7 @@
   - G
   maturity:
     base: Proposed
-    qualification: downgraded from Demonstrated — near-random performance outside narrow conditions;
+    qualification: downgraded from Demonstrated — near-random performance outside narrow conditions,
       benchmark practice confounded by member/non-member distribution shift
   readiness_measures: []
   notes: Decides whether one specific record was a training member. Performance is close to random for
@@ -493,7 +507,9 @@
       and undisclosed, plus access to model loss values
   readiness_measures: []
   notes: Aggregates many weak per-record membership signals across a candidate dataset. Substantially
-    more reliable than instance-level MI when validation-set conditions hold.
+    more reliable than instance-level MI when validation-set conditions hold. Zhang, Das, Kamath and
+    Tramèr argue that evaluating it with held-out counterfactual data is unsound, because publishing
+    data can affect other samples in the training set.
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: applicable
@@ -607,7 +623,7 @@
   - G
   maturity:
     base: Demonstrated
-    qualification: null
+    qualification: mechanics
   readiness_measures:
   - id: R0001
     relationship: strengthening

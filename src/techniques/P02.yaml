@@ -23,8 +23,8 @@
   status: active
   references:
   - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
-      technology — Security techniques — Guidelines for identification, collection, acquisition and preservation
-      of digital evidence'
+      technology — Security techniques — Guidelines for identification, collection, acquisition and
+      preservation of digital evidence, 5.4.4 Acquisition'
     status: active
 - id: T0202
   name: Live Process/Accelerator Memory Acquisition
@@ -36,10 +36,14 @@
   - W
   maturity:
     base: Demonstrated
-    qualification: null
+    qualification: 'CPU memory, GPU capture halts the process'
   readiness_measures: []
   notes: Acquire the memory image of the live model process/accelerator. Extraction and carving of the
-    recovered artifact from that image is a separate technique (T0301).
+    recovered artifact from that image is a separate technique (T0301). GPU capture with CUDA-GDB stops
+    the running process to write the memory image, so the acquisition changes the system under
+    examination and must be recorded (Principle 9). A sound memory image is judged on correctness,
+    atomicity and integrity (Vömel and Freiling). Kernel-level CPU acquisition tools show memory smear
+    from concurrent system activity and overwrite part of the memory they capture (Gruhn and Freiling).
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: applicable
@@ -53,6 +57,12 @@
   references:
   - text: 'Oygenblik, Yagemann, Zhang, Mastali, Park, Saltaformaggio (2024) — AI Psychiatry: Forensic Investigation of Deep Learning Networks in Memory Images. 33rd USENIX Security Symposium (USENIX Security 24), pp. 1687–1704, Appendix A (memory image acquisition)'
     status: active
+  - text: 'Vömel, Freiling (2012) — Correctness, Atomicity, and Integrity: Defining Criteria for Forensically-Sound
+      Memory Acquisition. Digital Investigation 9(2), 125–137. doi:10.1016/j.diin.2012.04.005'
+    status: active
+  - text: 'Gruhn, Freiling (2016) — Evaluating Atomicity, and Integrity of Correct Memory Acquisition Methods.
+      Digital Investigation 16 (DFRWS EU 2016), S1–S10. doi:10.1016/j.diin.2016.01.003'
+    status: active
 - id: T0203
   name: Interaction Log Acquisition
   phase: P02
@@ -64,7 +74,7 @@
   - G
   maturity:
     base: Established
-    qualification: null
+    qualification: mechanics
   readiness_measures:
   - id: R0001
     relationship: strengthening
@@ -90,6 +100,9 @@
     status: active
   - text: 'Kent, Chevalier, Grance, Dang (2006) — NIST SP 800-86: Guide to Integrating Forensic Techniques
       into Incident Response, §6.3.1. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-86'
+    status: active
+  - text: 'Jeong, Lee, Park (2025) — LangurTrace: Forensic analysis of local LLM applications. Forensic
+      Science International: Digital Investigation 54, 301987. doi:10.1016/j.fsidi.2025.301987'
     status: active
 - id: T0204
   name: Retrieval Corpus & Index Snapshot
@@ -143,11 +156,14 @@
   - G
   maturity:
     base: Established
-    qualification: null
+    qualification: mechanics
   readiness_measures:
   - id: R0003
     relationship: strengthening
   notes: System prompt, decoding params, guardrail configs, model/version IDs. Load-bearing for replay.
+    LangurTrace recovers the system prompt set for each session and the model used for each response
+    from local LLM applications. No source found so far covers capturing decoding parameters such as
+    temperature, top-p or seed.
   lifecycle_stages:
   - stage: Build and Use Model
     applicability: applicable
@@ -158,6 +174,13 @@
   - stage: Operate and Monitor
     applicability: applicable
   status: active
+  references:
+  - text: 'Kent, Chevalier, Grance, Dang (2006) — NIST SP 800-86: Guide to Integrating Forensic Techniques
+      into Incident Response, §7.1.1. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-86'
+    status: active
+  - text: 'Jeong, Lee, Park (2025) — LangurTrace: Forensic analysis of local LLM applications. Forensic
+      Science International: Digital Investigation 54, 301987. doi:10.1016/j.fsidi.2025.301987'
+    status: active
 - id: T0206
   name: Black-Box Interaction Capture
   phase: P02
@@ -197,7 +220,10 @@
   - id: R0007
     relationship: enabling
   notes: 'Lifecycle applicability does the honest work: applicable at Data-prep/Training/Fine-tuning;
-    rarely at Deployment without provider cooperation or legal process.'
+    rarely at Deployment without provider cooperation or legal process. Once access is lawful, acquiring
+    a dataset is ordinary data
+    acquisition with hashing. Court-ordered inspection gives access but produces no copy and no hash,
+    so it does not complete acquisition.'
   lifecycle_stages:
   - stage: Collect and Process Data
     applicability: applicable
@@ -214,6 +240,13 @@
   - text: 'United States District Court for the Northern District of California (2024) — In re OpenAI
       ChatGPT Litigation, Master File No. 3:23-cv-03223-AMO, ECF No. 182: Training Data Inspection Protocol
       (so ordered Sept. 24, 2024)'
+    status: active
+  - text: 'Kent, Chevalier, Grance, Dang (2006) — NIST SP 800-86: Guide to Integrating Forensic Techniques
+      into Incident Response, §3.1.2. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-86'
+    status: active
+  - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
+      technology — Security techniques — Guidelines for identification, collection, acquisition and
+      preservation of digital evidence, 5.4.3 Collection and 5.4.4 Acquisition'
     status: active
 - id: T0208
   name: Chain of Custody for AI Artifacts
@@ -246,7 +279,9 @@
   references:
   - text: 'Kent, Chevalier, Grance, Dang (2006) — NIST SP 800-86: Guide to Integrating Forensic Techniques into Incident Response, §3.1.2. National Institute of Standards and Technology. doi:10.6028/NIST.SP.800-86'
     status: active
-  - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information technology — Security techniques — Guidelines for identification, collection, acquisition and preservation of digital evidence'
+  - text: 'International Organization for Standardization & IEC (2012) — ISO/IEC 27037:2012: Information
+      technology — Security techniques — Guidelines for identification, collection, acquisition and
+      preservation of digital evidence, 5.4.5 Preservation and 6.1 Chain of custody'
     status: active
 - id: T0208.001
   name: Custody of Behavioral/Dynamic Evidence
